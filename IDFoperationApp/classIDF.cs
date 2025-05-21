@@ -2,10 +2,12 @@
 using System;
 using System.Collections.Generic;
 
-public class IDF :IOrganizsion
+public class IDF : IOrganization
 {
 
+    public DateTime FormatDate { get; set; }
 
+    public string CurrentCommander { get; set; }
 
 
 
