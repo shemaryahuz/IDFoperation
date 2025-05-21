@@ -8,5 +8,7 @@ namespace IDFoperationApp
 {
     internal interface IOrganization
     {
+        DateTime FormatDate { get; set; }
+        string CurrentCommander { get; set; }
     }
 }
