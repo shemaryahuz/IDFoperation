@@ -44,5 +44,25 @@ The purpose of this simulation is to explore class design, interfaces, and hiera
 ---
 
 ## 🔄 Class Relationship Diagram
+```
+/IDFOperation
+│
+├── Interfaces/
+│   ├── IOrganization.cs
+│   └── IStrikeOption.cs
+│
+├── Core/
+│   ├── IDF.cs
+│   ├── Hamas.cs
+│   ├── AMAN.cs
+│   ├── StrikeUnit.cs
+│   ├── Terrorist.cs
+│
+├── StrikeOptions/
+│   ├── AirStrike.cs
+│   ├── DroneStrike.cs
+│   └── CyberAttack.cs
+│
+└── README.md
+```
 
-<pre> ``` /IDFOperation │ ├── Interfaces/ │ ├── IOrganization.cs │ └── IStrikeOption.cs │ ├── Core/ │ ├── IDF.cs │ ├── Hamas.cs │ ├── AMAN.cs │ ├── StrikeUnit.cs │ ├── Terrorist.cs │ ├── StrikeOptions/ │ ├── AirStrike.cs │ ├── DroneStrike.cs │ └── CyberAttack.cs │ └── README.md ``` </pre>
