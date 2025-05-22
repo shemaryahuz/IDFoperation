@@ -14,6 +14,6 @@ namespace IDFoperationApp
             CurrentCommander = "Eyal Zamir";
         }
         public AMAN amanUnit = new AMAN();
-        // to add StrikeUnit that store the idf strike options
+        public StrikeUnit strikeUnit = new StrikeUnit();
     }
 }
