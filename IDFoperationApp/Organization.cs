@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace IDFoperationApp
 {
-    internal interface IOrganization
+    internal abstract class Organization
     {
-        DateTime EstablishDate { get; set; }
-        string CurrentCommander { get; set; }
+        public DateOnly EstablishDate { get; set; }
+        public string CurrentCommander { get; set; }
     }
 }

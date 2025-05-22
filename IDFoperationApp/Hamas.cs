@@ -6,18 +6,21 @@ using System.Threading.Tasks;
 
 namespace IDFoperationApp
 {
-    internal class Hamas: IOrganization
+    internal class Hamas: Organization
     {
-        public DateTime EstablishDate { get; set; }
-        public string CurrentCommander { get; set; }
-        public List<Terrorist> Terrorists = new List<Terrorist>();
-        public void AddTerrorist(Terrorist terrorist)
+        public static List<Terrorist> Terrorists = new List<Terrorist>();
+        public Hamas()
         {
-            this.Terrorists.Add(terrorist);
+            EstablishDate = new DateTime(1987, 12, 10).Date;
+            CurrentCommander = "Mohammed Sinwar";
         }
-        public void RemoveTerrorist(Terrorist terrorist)
+        public static void AddTerrorist(Terrorist terrorist)
         {
-            this.Terrorists.Remove(terrorist);
+            Terrorists.Add(terrorist);
+        }
+        public static void RemoveTerrorist(Terrorist terrorist)
+        {
+            Terrorists.Remove(terrorist);
         }
 
     }
