@@ -6,13 +6,18 @@ using System.Threading.Tasks;
 
 namespace IDFoperationApp
 {
-    internal interface IOrganization
+    public abstract class Organization
     {
-<<<<<<< HEAD
-        DateTime EstablishtDate { get; set; }
-=======
-        DateTime EstablishDate { get; set; }
->>>>>>> 577a8455461d55b1e247fc8253d87ef17c9901d4
-        string CurrentCommander { get; set; }
+        public string dateOfAstablish;
+        public string corruntCommender;
+        //List<string> myList = new List<string>();
+
+
+        public Organization(string dateOfAstablish, string corruntCommender)
+        {
+            this.dateOfAstablish = dateOfAstablish;
+            this.corruntCommender = corruntCommender;
+            //this.myList = new List<string>();
+        }
     }
-}
+

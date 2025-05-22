@@ -1,43 +1,33 @@
 ﻿
+
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Runtime.InteropServices;
 
-namespace IDFoperationApp
+public abstract class Organization
 {
-     interface IOrganization
+    public string dateOfAstablish;
+    public string corruntCommender;
+    //List<string> myList = new List<string>();
+
+
+    public Organization(string dateOfAstablish,string corruntCommender)
     {
-        DateTime FormatDate { get; set; }
-        string CurrentCommander { get; set; }
+        this.dateOfAstablish = dateOfAstablish;
+        this.corruntCommender = corruntCommender;
+        //this.myList = new List<string>();
     }
 }
 
-public class IDF : IOrganization
+
+
+public class IDF : Organization
 {
+    
 
-    public DateTime FormatDate { get; set; }
-
-    public string CurrentCommander { get; set; }
-
-
-
-
-
+    public IDF(string dateOfAstablish, string corruntCommender) : base("1948", corruntCommender)
+    {
+      
+    List<string> myList = new List<string>();
 }
-
-
-
-
-internal interface IStrikeOptions
-{
-    string AUniqueName { get; set; }
-
-    string AmmunitionCapacity { get; set; }
-
-    void FuelSupply();
-
-    List<string> typeOfTartet();
 }
-
