@@ -1,68 +1,94 @@
-﻿# IDF Operation – C# Project
+﻿# IDF Operation - C# Project
 
-## 🪖 Overview
+## 🧭 Overview
 
-This C# project models a simplified structure of a military operation involving the **IDF (Israel Defense Forces)** and **Hamas**. The core design uses interfaces and object-oriented principles to simulate organizational structures, operational units, and attack strategies.
-
-The purpose of this simulation is to explore class design, interfaces, and hierarchical object relationships using C#.
+This C# project models a simplified military operation involving the **IDF (Israel Defense Forces)** and **Hamas**.  
+The design leverages interfaces, abstract classes, and object-oriented principles to simulate organizational structure, military units, intelligence, and strategic strike operations.
 
 ---
 
 ## 🏗️ Project Architecture
 
-### Interfaces
+---
+### 🧱 Abstract Classes
 
-- **`IOrganization`**
-  - Members:
-    - `DateTime DateOfEstablishment`
-    - `string CurrentCommander`
+- **`Organization`** *(abstract)*  
+  Base class for IDF and Hamas
 
-- **`IStrikeOption`**
-  - To be implemented by different strike option classes (e.g., AirStrike, DroneStrike, etc.)
+- **`StrikeOption`** *(abstract)*  
+  Base class for different types of strike implementations
 
 ---
 
-### Classes
+## 🔷 IDF Classes
 
-- **`IDF`** (Implements `IOrganization`)
+- **`IDF`** *(inherits from `Organization`)*
   - Members:
-    - `AMAN` (Military Intelligence) – *Planned*
-    - `StrikeUnit`
-      - Holds a `List<IStrikeOption>`
+    - `AMAN` (Intelligence unit)
+    - `StrikeUnit` (Attack force)
 
-- **`Hamas`** (Implements `IOrganization`)
-  - Members:
-    - `List<Terrorist>`
-    - Intelligence and methods – *Planned*
+- **`AMAN`**
+  - Holds: `List<IntelligenceMessage>`
+
+- **`StrikeUnit`**
+  - Holds: `List<StrikeOption>` (can be `Plain`, `Drone`, `Artillery`, etc.)
+
+- **`IntelligenceMessage`**
+  - Contains intelligence data collected by AMAN
+
+- **Strike Option Types** *(inherit from `StrikeOption`)*
+  - `Plain`
+  - `Drone`
+  - `Artillery`
+
+---
+
+## 🔴 Hamas Classes
+
+- **`Hamas`** *(inherits from `Organization`)*
+  - Holds: `List<Terrorist>`
 
 - **`Terrorist`**
-  - Basic properties and identity of enemy operatives
-
-- **Strike Option Classes** (Implement `IStrikeOption`)
-  - Examples (not implemented yet): `AirStrike`, `DroneStrike`, `CyberAttack`, etc.
+  - Contains identifying information and traits
 
 ---
 
-## 🔄 Class Relationship Diagram
+## 🎮 Controller Class
+
+- **`IDFCommander`**
+  - Manages the full simulation
+  - Responsibilities:
+    - Displays data
+    - Manipulates object states
+    - Initiates attacks
+    - Coordinates between IDF and Hamas objects
+
+---
+
+## 📁 Folder Structure
 ```
-/IDFOperation
+/IDFOperationApp
 │
-├── Interfaces/
-│   ├── IOrganization.cs
-│   └── IStrikeOption.cs
+├── Base/
+│ ├── Organization.cs
+│ └── StrikeOption.cs
+│
+├── IDF/
+│ ├── IDF.cs
+│ ├── AMAN.cs
+│ ├── StrikeUnit.cs
+│ ├── IntelligenceMessage.cs
+│ └── StrikeOptions/
+│   ├── Plain.cs
+│   ├── Drone.cs
+│   └── Artillery.cs
+│
+├── Hamas/
+│ ├── Hamas.cs
+│ └── Terrorist.cs
 │
 ├── Core/
-│   ├── IDF.cs
-│   ├── Hamas.cs
-│   ├── AMAN.cs
-│   ├── StrikeUnit.cs
-│   ├── Terrorist.cs
-│
-├── StrikeOptions/
-│   ├── AirStrike.cs
-│   ├── DroneStrike.cs
-│   └── CyberAttack.cs
-│
-└── README.md
+  ├── IDFComander.cs
+  └── Program.cs
 ```
 
