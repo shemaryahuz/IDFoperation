@@ -9,10 +9,17 @@ namespace IDFoperationApp
     internal class AMAN
     {
         public List<IntelligencMessage> Messages = new List<IntelligencMessage>();
+        public Dictionary<string>
         public void CreateMessage(Terrorist terrorist, string location, DateTime time)
         {
             IntelligencMessage message = new IntelligencMessage(terrorist, location, time);
             this.Messages.Add(message);
         }
+        public D
     }
 }
+
+
+
+
+
