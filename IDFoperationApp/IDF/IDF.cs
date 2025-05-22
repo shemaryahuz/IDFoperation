@@ -13,5 +13,7 @@ namespace IDFoperationApp
             EstablishDate = new DateTime(1948, 5, 26).Date;
             CurrentCommander = "Eyal Zamir";
         }
+        public AMAN amanUnit = new AMAN();
+        // to add StrikeUnit that store the idf strike options
     }
 }

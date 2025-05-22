@@ -8,7 +8,7 @@ namespace IDFoperationApp
 {
     internal abstract class Organization
     {
-        public DateOnly EstablishDate { get; set; }
+        public DateTime EstablishDate { get; set; }
         public string CurrentCommander { get; set; }
     }
 }
