@@ -1,6 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-public class StrikeUnit
+namespace IDFoperationApp
 {
-    List<List<StrikeOptions>> listOptions = new List<List<StrikeOptions>>();
+
+    internal class StrikeUnit
+    {
+        List<List<StrikeOptions>> listOptions = new List<List<StrikeOptions>>();
+    }
 }
