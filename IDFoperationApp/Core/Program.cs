@@ -10,6 +10,9 @@ namespace IDFoperationApp
     {
         static void Main(string[] args)
         {
+            Terrorist ali = new Terrorist("Ali", 3, new List<string>() { "Gun", "Gun" });
+            IntelTerrorist intelTerrorist = new IntelTerrorist(ali);
+            Console.WriteLine(intelTerrorist.Name, intelTerrorist.Rank, intelTerrorist.Score);
         }
     }
 }

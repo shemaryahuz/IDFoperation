@@ -43,16 +43,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Base\strikeoptions.cs" />
+    <Compile Include="Base\IStrikeOption.cs" />
     <Compile Include="Core\Program.cs" />
     <Compile Include="IDF\AMAN.cs" />
     <Compile Include="Hamas\Hamas.cs" />
     <Compile Include="IDF\IDF.cs" />
     <Compile Include="Core\IDFCommander.cs" />
     <Compile Include="IDF\IntelligencMessage.cs" />
-    <Compile Include="IDF\strikeOptions\Artillery.cs" />
-    <Compile Include="IDF\strikeOptions\f16.cs" />
-    <Compile Include="IDF\strikeOptions\Herms.cs" />
+    <Compile Include="IDF\IntelTerrorist.cs" />
+    <Compile Include="IDF\StrikeOptions\Artillery.cs" />
+    <Compile Include="IDF\StrikeOptions\Drone.cs" />
+    <Compile Include="IDF\StrikeOptions\Plain.cs" />
     <Compile Include="IDF\StrikeUnit.cs" />
     <Compile Include="obj\Debug\.NETFramework,Version=v4.7.2.AssemblyAttributes.cs" />
     <Compile Include="obj\Release\.NETFramework,Version=v4.7.2.AssemblyAttributes.cs" />

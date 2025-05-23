@@ -12,15 +12,12 @@ namespace IDFoperationApp
         public int Rank;
         public bool IsAlive;
         public List<string> Weapons = new List<string>();
-        public Terrorist(string name, int rank)
+        public Terrorist(string name, int rank, List<string> weapons)
         {
             this.Name = name;
             this.Rank = rank;
             this.IsAlive = true;
-        }
-        public void AddWeapon(string weapon)
-        {
-            this.Weapons.Add(weapon);
+            this.Weapons = weapons;
         }
     }
 }
