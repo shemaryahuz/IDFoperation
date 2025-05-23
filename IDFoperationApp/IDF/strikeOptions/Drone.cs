@@ -6,22 +6,22 @@ using System.Threading.Tasks;
 
 namespace IDFoperationApp
 {
-    internal class Artillery: IStrikeOption
+    internal class Drone: IStrikeOption
     {
         public string UniqueName { get; set; }
         public int Capacity { get; set; }
         public string[] BombsType { get; set; }
         public string[] TypeOfTarget { get; set; }
-        public Artillery(string uniqeName)
+        public Drone(string uniqeName)
         {
             this.UniqueName = uniqeName;
-            this.Capacity = 80;
-            this.BombsType = new string[] { "Explosive shells" };
-            this.TypeOfTarget = new string[] { "Open areas" };
+            this.Capacity = 3;
+            this.BombsType = new string[] { "Personnel", "Armored vehicles" };
+            this.TypeOfTarget = new string[] { "Buildings" };
         }
         public void Supply()
         {
-            this.Capacity += 40;
+            this.Capacity += 2;
         }
     }
 }
