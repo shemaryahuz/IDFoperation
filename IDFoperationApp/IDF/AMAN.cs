@@ -8,6 +8,7 @@ namespace IDFoperationApp
 {
     internal class AMAN
     {
+        // to rebuild aman
         public Dictionary<string, int[]> IntelTerrorists = new Dictionary<string, int[]>();
         //public List<IntelligencMessage> Messages = new List<IntelligencMessage>();
         public AMAN(Hamas hamas)
