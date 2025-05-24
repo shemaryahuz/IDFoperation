@@ -16,6 +16,23 @@ namespace IDFoperationApp
             this.Rank = terrorist.Rank;
             this.IsAlive = terrorist.IsAlive;
             this.Weapons = terrorist.Weapons;
+            this.Reports = 0;
+            this.Score = 0;
+            foreach (string weapon in this.Weapons)
+            {
+                switch (weapon)
+                {
+                    case "Rifle":
+                        this.Score += this.Rank * 3;
+                        break;
+                    case "Gun":
+                        this.Score += this.Rank * 2;
+                        break;
+                    case "Knif":
+                        this.Score += this.Rank;
+                        break;
+                }
+            }
         }
     }
 }

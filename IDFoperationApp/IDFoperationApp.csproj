@@ -43,8 +43,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base\IStrikeOption.cs" />
+    <Compile Include="Base\Organization.cs" />
+    <Compile Include="Core\IDFCommander.cs" />
+    <Compile Include="Hamas\Hamas.cs" />
+    <Compile Include="Hamas\Terrorist.cs" />
+    <Compile Include="IDF\AMAN.cs" />
+    <Compile Include="IDF\IDF.cs" />
+    <Compile Include="IDF\IntelligencMessage.cs" />
+    <Compile Include="IDF\IntelTerrorist.cs" />
+    <Compile Include="IDF\StrikeOptions\Artillery.cs" />
+    <Compile Include="IDF\StrikeOptions\Drone.cs" />
+    <Compile Include="IDF\StrikeOptions\Plain.cs" />
+    <Compile Include="IDF\StrikeUnit.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UI\DisplayHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -8,7 +8,7 @@ namespace IDFoperationApp
 {
     internal class Hamas: Organization
     {
-        private List<Terrorist> Terrorists = new List<Terrorist>();
+        public List<Terrorist> Terrorists = new List<Terrorist>();
         public Hamas()
         {
             this.EstablishDate = new DateTime(1987, 12, 10).Date;

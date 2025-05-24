@@ -8,22 +8,27 @@ namespace IDFoperationApp
 {
     internal class AMAN
     {
-        public Dictionary<IntelTerrorist, List<IntelligencMessage>> Messages = new Dictionary<IntelTerrorist, List<IntelligencMessage>>();
-        public Dictionary<IntelTerrorist, int[]> IntelTerrorists = new Dictionary<IntelTerrorist, int[]>();
-        public AMAN()
+        public Dictionary<string, int[]> IntelTerrorists = new Dictionary<string, int[]>();
+        public List<IntelligencMessage> Messages = new List<IntelligencMessage>();
+        public AMAN(Hamas hamas)
         {
-
+            foreach (Terrorist terrorist in hamas.Terrorists)
+            {
+                this.AddIntelTerrorist(terrorist);
+            }
+            IntelligencMessage message1 = new IntelligencMessage("Mohammad Sinwar", "Home", new DateTime(2025, 4, 20));
+            IntelligencMessage message2 = new IntelligencMessage("Mohammad Sinwar", "Home", new DateTime(2025, 5, 10));
+            IntelligencMessage message3 = new IntelligencMessage("Mohammad Sinwar", "Home", new DateTime(2025, 5, 24));
         }
         public void AddIntelTerrorist(Terrorist terrorist)
         {
             IntelTerrorist intelTerrorist = new IntelTerrorist(terrorist);
-            this.IntelTerrorists[intelTerrorist] = new int[] {intelTerrorist.Reports, intelTerrorist.Score};
+            this.IntelTerrorists[intelTerrorist.Name] = new int[] {intelTerrorist.Reports, intelTerrorist.Score};
         }
-        public void AddMessage(IntelTerrorist terrorist, string location, DateTime time)
-        {
-            IntelligencMessage message = new IntelligencMessage(terrorist, location, time);
-            this.Messages[terrorist].Add(message);
-            terrorist.Reports++;
+        public void AddMessage(IntelligencMessage message)
+        {           
+            this.Messages.Add(message);
+            this.IntelTerrorists[message.TerroristName][0]++;
         }
     }
 }
