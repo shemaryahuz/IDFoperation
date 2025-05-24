@@ -10,9 +10,17 @@ namespace IDFoperationApp
     {
         static void Main(string[] args)
         {
-            Terrorist t = new Terrorist("ali", 3, new List<string>() { "Rifle", "Gun" });
-            IntelTerrorist it = new IntelTerrorist(t);
-            Console.WriteLine($"{it.Name} {it.Rank} {it.Score}");
+            Hamas hamas = new Hamas();
+            IDF idf = new IDF(hamas);
+            Console.WriteLine("Those are the macins of strike options that the Strike Unit of the IDF holds:");
+            foreach (string strikOption in idf.strikeUnit.StrikeOptionsData.Keys)
+            {
+                Console.WriteLine($"{strikOption}:");
+                foreach (IStrikeOption machin in idf.strikeUnit.StrikeOptionsData[strikOption])
+                {
+                    Console.WriteLine($"Name: {machin.UniqueName}. Capacity: {machin.Capacity}.");
+                }
+            }
         }
     }
 }

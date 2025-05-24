@@ -15,8 +15,8 @@ namespace IDFoperationApp
             Terrorist mohammadSinwar = new Terrorist("Mohammed Sinwar", 5, new List<string>() { "Rifle", "Gun" });
             this.CurrentCommander = mohammadSinwar.Name;
             this.AddTerrorist(mohammadSinwar);
-            Terrorist ali = new Terrorist("Ali", 3, new List<string>() { "Gun", "Gun" });
-            Terrorist said = new Terrorist("Said", 2, new List<string>() { "Gun", "Knif" });
+            Terrorist ali = new Terrorist("Abu Ali", 3, new List<string>() { "Gun", "Gun" });
+            Terrorist said = new Terrorist("Said Hamdi", 2, new List<string>() { "Gun", "Knif" });
             this.AddTerrorist(ali);
             this.AddTerrorist(said);
         }
