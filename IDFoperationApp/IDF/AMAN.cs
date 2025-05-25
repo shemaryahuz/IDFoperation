@@ -17,9 +17,11 @@ namespace IDFoperationApp
             IntelligencMessage message = new IntelligencMessage(terrorist, location, time);
             this.Messages.Add(message);
 
+            orderMessages(messages);
+
             return message;
         }
-            Public <Dictionary<string, int[]>> orderMessages(IntelligencMessage messages)
+            public Dictionary<string, int[]> orderMessages(IntelligencMessage messages)
             {
                 if (troristRates.ContainsKey(messages.Terrorist.Name))
                 {
@@ -48,11 +50,11 @@ namespace IDFoperationApp
         {
             List<Dictionary<string, int[]>> orderdenger = new List<Dictionary<string,int[]>>();
             int theMostDanger = 0;
-            foreach(var p in troristRates)
+            foreach (var p in troristRates)
             {
                 if(p.Value[1] >= theMostDanger)
                 {
-                    orderdenger.Insert(0,p);
+                    orderdenger.Add(p);
 
                 }
             }
