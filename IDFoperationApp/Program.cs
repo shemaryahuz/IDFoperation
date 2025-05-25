@@ -12,9 +12,27 @@ namespace IDFoperationApp
         {
             Hamas hamas = new Hamas();
             IDF idf = new IDF(hamas);
-            IDFCommander.ShowIntelTerrorists(idf);
-            IDFCommander.ShowIntelMessages(idf);
-            IDFCommander.ShowStrikeOptions(idf);           
+            bool toExit = false;
+            while (!toExit)
+            {
+                IDFCommander.ShowMenu(idf);
+                string choice = IDFCommander.GetChoice();
+                if (choice == "5")
+                {
+                    toExit = true;
+                    continue;
+                }
+                else if (!IDFCommander.ValidateChoice(choice))
+                {
+                    Console.WriteLine("Invalid Input!");
+                    continue;
+                }
+                else
+                {
+                    IDFCommander.ActivateChoice(choice, idf, hamas);
+                }
+            }
+            
         }
     }
 }
