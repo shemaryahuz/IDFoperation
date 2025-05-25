@@ -8,11 +8,23 @@ namespace IDFoperationApp
 {
     internal class AMAN
     {
-        public List<IntelligencMessage> Messages = new List<IntelligencMessage>();
-        public void CreateMessage(Terrorist terrorist, string location, DateTime time)
+        // to rebuild aman
+        public List<IntelTerrorist> IntelTerrorists = new  List<IntelTerrorist>();
+        //public List<IntelligencMessage> Messages = new List<IntelligencMessage>();
+        public AMAN(Hamas hamas)
         {
-            IntelligencMessage message = new IntelligencMessage(terrorist, location, time);
-            this.Messages.Add(message);
+            foreach (Terrorist terrorist in hamas.Terrorists)
+            {
+                this.AddIntelTerrorist(terrorist);
+            }
         }
+        public void AddIntelTerrorist(Terrorist terrorist)
+        {
+            IntelTerrorist intelTerrorist = new IntelTerrorist(terrorist);
+            this.IntelTerrorists.Add(intelTerrorist);
+        }
+        //IntelligencMessage message1 = new IntelligencMessage("Mohammad Sinwar", "Home", new DateTime(2025, 4, 20, 12, 20, 0));
+        //IntelligencMessage message2 = new IntelligencMessage("Abu Ali", "Car", new DateTime(2025, 5, 10, 11, 8, 0));
+        //IntelligencMessage message3 = new IntelligencMessage("Said Hamdi", "Home", new DateTime(2025, 5, 24, 13, 30, 50));
     }
 }

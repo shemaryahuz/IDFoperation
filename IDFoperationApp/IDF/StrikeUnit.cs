@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IDFoperationApp;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,33 @@ namespace IDFoperationApp
 
     internal class StrikeUnit
     {
-        List<List<StrikeOptions>> listOptions = new List<List<StrikeOptions>>();
+        public Dictionary<string, List<IStrikeOption>> StrikeOptionsData = new Dictionary<string, List<IStrikeOption>>();
+        public StrikeUnit() 
+        {
+            this.StrikeOptionsData = new Dictionary<string, List<IStrikeOption>>
+            {
+                {"Plains", new List<IStrikeOption>() },
+                {"Drones", new List<IStrikeOption>() },
+                {"Artilleries", new List<IStrikeOption>() }
+            };
+            for (int i = 0; i < 5; i++)
+            {
+                this.StrikeOptionsData["Plains"].Add(new Plain($"F16{i + 1}"));
+                this.StrikeOptionsData["Drones"].Add(new Drone($"ZIK{i + 1}"));
+                this.StrikeOptionsData["Artilleries"].Add(new Artillery($"M109.{i + 1}"));
+            }
+        }
+        public void AddPlain(string plainName)
+        {
+            this.StrikeOptionsData["Plains"].Add(new Plain(plainName));
+        }
+        public void AddDrone(string droneName)
+        {
+            this.StrikeOptionsData["Drones"].Add(new Plain(droneName));
+        }
+        public void AddArtilery(string artilleryName)
+        {
+            this.StrikeOptionsData["Artilleris"].Add(new Plain(artilleryName));
+        }
     }
 }

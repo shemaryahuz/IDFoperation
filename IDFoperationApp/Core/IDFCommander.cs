@@ -8,14 +8,6 @@ namespace IDFoperationApp
 {
     internal class IDFCommander
     {
-        static Terrorist GetMostMentionedTerrorist()
-        {
-            // to return the most mentioned terrorist
-        }
-        static Dictionary<> GetStrikeOptions()
-        {
-
-        }
         static void DangerousTerrorist()
         {
             // determine the most dangerous terrorist

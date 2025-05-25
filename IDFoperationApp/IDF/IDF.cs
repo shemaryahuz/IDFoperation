@@ -8,12 +8,14 @@ namespace IDFoperationApp
 {
     internal class IDF: Organization
     {
-        public IDF()
+        public AMAN amanUnit;
+        public StrikeUnit strikeUnit;
+        public IDF(Hamas hamas)
         {
-            EstablishDate = new DateTime(1948, 5, 26).Date;
-            CurrentCommander = "Eyal Zamir";
+            this.EstablishDate = new DateTime(1948, 5, 26).Date;
+            this.CurrentCommander = "Eyal Zamir";
+            this.amanUnit = new AMAN(hamas);
+            this.strikeUnit = new StrikeUnit();
         }
-        public AMAN amanUnit = new AMAN();
-        public StrikeUnit strikeUnit = new StrikeUnit();
     }
 }

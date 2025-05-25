@@ -8,12 +8,12 @@ namespace IDFoperationApp
 {
     internal class IntelligencMessage
     {
-        public Terrorist Terrorist;
+        public IntelTerrorist IntelTerrorist;
         public string Location;
         public DateTime Time;
-        public IntelligencMessage(Terrorist terrorist, string location, DateTime time)
+        public IntelligencMessage(IntelTerrorist intelTerrorist, string location, DateTime time)
         {
-            this.Terrorist = terrorist;
+            this.IntelTerrorist = intelTerrorist;
             this.Location = location;
             this.Time = time;
         }
