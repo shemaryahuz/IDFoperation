@@ -17,7 +17,7 @@ namespace IDFoperationApp
             this.UniqueName = uniqeName;
             this.Capacity = 3;
             this.BombsType = new string[] { "Personnel", "Armored vehicles" };
-            this.TypeOfTarget = new string[] { "Buildings" };
+            this.TypeOfTarget = new string[] { "Buildings" , "Open area"};
         }
         public void Supply()
         {

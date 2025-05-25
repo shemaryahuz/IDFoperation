@@ -12,7 +12,8 @@ namespace IDFoperationApp
         {
             Hamas hamas = new Hamas();
             IDF idf = new IDF(hamas);
-            IDFCommander.ShowTerrorists(idf);
+            IDFCommander.ShowIntelTerrorists(idf);
+            IDFCommander.ShowIntelMessages(idf);
             IDFCommander.ShowStrikeOptions(idf);           
         }
     }

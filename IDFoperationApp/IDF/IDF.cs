@@ -17,9 +17,33 @@ namespace IDFoperationApp
             this.amanUnit = new AMAN(hamas);
             this.strikeUnit = new StrikeUnit();
         }
-        public bool ConfirmAttack(IntelMessage intelMessage, IStrikeOption strikeOption)
+        public IntelMessage ChooseTarget()
         {
-            if (intelMessage.IntelTerrorist.IsAlive && strikeOption.Capacity < 0)
+            IntelMessage messageOfTarget = this.amanUnit.Messages[this.amanUnit.Messages.Count - 1];
+            foreach (IntelMessage intelMessage in this.amanUnit.Messages)
+            {
+                if (intelMessage.IntelTerrorist.Rank > messageOfTarget.IntelTerrorist.Rank)
+                {
+                    messageOfTarget = intelMessage;
+                }
+            }
+            return messageOfTarget;
+        }
+        public IStrikeOption ChooseStrikeOption(IntelMessage intelMessage)
+        {
+            switch (intelMessage.Location)
+            {
+                case "Home":                       
+                    return this.strikeUnit.StrikeOptionsData["Plains"][0];
+                case "Car":
+                    return this.strikeUnit.StrikeOptionsData["Artillery"][0];
+                default:
+                    return this.strikeUnit.StrikeOptionsData["Drones"][0];
+            }
+        }
+        public bool ConfirmAttack(IntelTerrorist intelTerrorist, IStrikeOption strikeOption)
+        {
+            if (intelTerrorist.IsAlive && strikeOption.Capacity < 0)
             {
                 return true;
             }
