@@ -22,7 +22,7 @@ namespace IDFoperationApp
             IntelMessage messageOfTarget = this.amanUnit.Messages[this.amanUnit.Messages.Count - 1];
             foreach (IntelMessage intelMessage in this.amanUnit.Messages)
             {
-                if (intelMessage.IntelTerrorist.Rank > messageOfTarget.IntelTerrorist.Rank)
+                if (intelMessage.IntelTerrorist.Rank > messageOfTarget.IntelTerrorist.Rank && intelMessage.IntelTerrorist.IsAlive)
                 {
                     messageOfTarget = intelMessage;
                 }
@@ -43,7 +43,7 @@ namespace IDFoperationApp
         }
         public bool ConfirmAttack(IntelTerrorist intelTerrorist, IStrikeOption strikeOption)
         {
-            if (intelTerrorist.IsAlive && strikeOption.Capacity < 0)
+            if (intelTerrorist.IsAlive && strikeOption.Capacity > 0)
             {
                 return true;
             }
