@@ -12,16 +12,14 @@ namespace IDFoperationApp
         public Hamas()
         {
             this.EstablishDate = new DateTime(1987, 12, 10).Date;
-            Terrorist mohammadSinwar = new Terrorist("Mohammed Sinwar", 5, new List<string>() { "Rifle", "Gun" });
-            this.CurrentCommander = mohammadSinwar.Name;
-            this.AddTerrorist(mohammadSinwar);
-            Terrorist ali = new Terrorist("Abu Ali", 3, new List<string>() { "Gun", "Gun" });
-            Terrorist said = new Terrorist("Said Hamdi", 2, new List<string>() { "Gun", "Knif" });
-            this.AddTerrorist(ali);
-            this.AddTerrorist(said);
+            this.CurrentCommander = "Mohammed Sinwar";
+            this.AddTerrorist("Mohammed Sinwar", 5, new List<string>() { "Rifle", "Gun" });
+            this.AddTerrorist("Abu Ali", 3, new List<string>() { "Gun", "Gun" });
+            this.AddTerrorist("Said Hamdi", 2, new List<string>() { "Gun", "Knif" });
         }
-        public void AddTerrorist(Terrorist terrorist)
+        public void AddTerrorist(string name, int rank, List<string> wepon)
         {
+            Terrorist terrorist = new Terrorist(name, rank, wepon);
             this.Terrorists.Add(terrorist);
         }
     }

@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace IDFoperationApp
 {
-    internal class IntelligencMessage
+    internal class IntelMessage
     {
         public IntelTerrorist IntelTerrorist;
         public string Location;
         public DateTime Time;
-        public IntelligencMessage(IntelTerrorist intelTerrorist, string location, DateTime time)
+        public IntelMessage(IntelTerrorist intelTerrorist, string location, DateTime time)
         {
             this.IntelTerrorist = intelTerrorist;
             this.Location = location;

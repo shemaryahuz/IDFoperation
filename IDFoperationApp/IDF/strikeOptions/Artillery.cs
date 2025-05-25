@@ -15,7 +15,7 @@ namespace IDFoperationApp
         public Artillery(string uniqeName)
         {
             this.UniqueName = uniqeName;
-            this.Capacity = 80;
+            this.Capacity = 20;
             this.BombsType = new string[] { "Explosive shells" };
             this.TypeOfTarget = new string[] { "Open areas" };
         }
