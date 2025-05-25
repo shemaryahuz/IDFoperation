@@ -6,29 +6,40 @@ using System.Threading.Tasks;
 
 namespace IDFoperationApp
 {
-    internal class IDFCommander
+    internal static class IDFCommander
     {
-        static void DangerousTerrorist()
+        public static void ShowTerrorists(IDF idf)
         {
-            // determine the most dangerous terrorist
+            Console.WriteLine("Those are the Hamas terrorists that the AMAN Unit of the IDF is Tracking after them:");
+            foreach (IntelTerrorist intelTerrorist in idf.amanUnit.IntelTerrorists)
+            {
+                Console.WriteLine($"Name: {intelTerrorist.Name}. Rank: {intelTerrorist.Rank}. Score: {intelTerrorist.Score}. Reports: {intelTerrorist.Reports}.");
+            }
         }
-        static void DisplayTerrorist(Terrorist terrorist)
+        public static void ShowStrikeOptions(IDF idf)
         {
-            // show the info about the terrorist
+            Console.WriteLine("Those are the macins of strike options that the Strike Unit of the IDF holds:");
+            foreach (string strikOption in idf.strikeUnit.StrikeOptionsData.Keys)
+            {
+                Console.WriteLine($"{strikOption}:");
+                foreach (IStrikeOption machin in idf.strikeUnit.StrikeOptionsData[strikOption])
+                {
+                    Console.Write(
+                        $"Name: {machin.UniqueName}." +
+                        $"Capacity: {machin.Capacity}." +
+                        $"Bombs Type: ");
+                    foreach (string bomb in machin.BombsType)
+                    {
+                        Console.Write($"{bomb} ");
+                    }
+                    Console.Write($"\nType Of Target: ");
+                    foreach (string target in machin.TypeOfTarget)
+                    {
+                        Console.Write($"{target} ");
+                    }
+                    Console.WriteLine();
+                }
+            }
         }
-        static void ChooseStrike()
-        {
-            //	Based on the terrorist's location and type, choose an appropriate strike unit
-
-        }
-        static void ConfirmStrike()
-        {
-
-        }
-        static void UpdateData()
-        {
-
-        }
-
     }
 }

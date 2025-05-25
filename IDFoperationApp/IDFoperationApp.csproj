@@ -50,7 +50,7 @@
     <Compile Include="Hamas\Terrorist.cs" />
     <Compile Include="IDF\AMAN.cs" />
     <Compile Include="IDF\IDF.cs" />
-    <Compile Include="IDF\IntelligencMessage.cs" />
+    <Compile Include="IDF\IntelMessage.cs" />
     <Compile Include="IDF\IntelTerrorist.cs" />
     <Compile Include="IDF\StrikeOptions\Artillery.cs" />
     <Compile Include="IDF\StrikeOptions\Drone.cs" />
