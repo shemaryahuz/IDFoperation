@@ -12,10 +12,11 @@ namespace IDFoperationApp
         {
             Hamas hamas = new Hamas();
             IDF idf = new IDF(hamas);
+            IDFCommander.Welcome(idf);
             bool toExit = false;
             while (!toExit)
             {
-                IDFCommander.ShowMenu(idf);
+                IDFCommander.ShowMenu();
                 string choice = IDFCommander.GetChoice();
                 if (choice == "5")
                 {
