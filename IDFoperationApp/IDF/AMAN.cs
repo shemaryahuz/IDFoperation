@@ -9,7 +9,7 @@ namespace IDFoperationApp
     internal class AMAN
     {
         // to rebuild aman
-        public Dictionary<string, int[]> IntelTerrorists = new Dictionary<string, int[]>();
+        public List<IntelTerrorist> IntelTerrorists = new  List<IntelTerrorist>();
         //public List<IntelligencMessage> Messages = new List<IntelligencMessage>();
         public AMAN(Hamas hamas)
         {
@@ -17,14 +17,14 @@ namespace IDFoperationApp
             {
                 this.AddIntelTerrorist(terrorist);
             }
-            //IntelligencMessage message1 = new IntelligencMessage("Mohammad Sinwar", "Home", new DateTime(2025, 4, 20, 12, 20, 0));
-            //IntelligencMessage message2 = new IntelligencMessage("Abu Ali", "Car", new DateTime(2025, 5, 10, 11, 8, 0));
-            //IntelligencMessage message3 = new IntelligencMessage("Said Hamdi", "Home", new DateTime(2025, 5, 24, 13, 30, 50));
         }
         public void AddIntelTerrorist(Terrorist terrorist)
         {
             IntelTerrorist intelTerrorist = new IntelTerrorist(terrorist);
-            this.IntelTerrorists[intelTerrorist.Name] = new int[] {intelTerrorist.Reports, intelTerrorist.Score};
+            this.IntelTerrorists.Add(intelTerrorist);
         }
+        //IntelligencMessage message1 = new IntelligencMessage("Mohammad Sinwar", "Home", new DateTime(2025, 4, 20, 12, 20, 0));
+        //IntelligencMessage message2 = new IntelligencMessage("Abu Ali", "Car", new DateTime(2025, 5, 10, 11, 8, 0));
+        //IntelligencMessage message3 = new IntelligencMessage("Said Hamdi", "Home", new DateTime(2025, 5, 24, 13, 30, 50));
     }
 }

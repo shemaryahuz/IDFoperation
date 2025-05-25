@@ -21,8 +21,11 @@ namespace IDFoperationApp
                     Console.WriteLine($"Name: {machin.UniqueName}. Capacity: {machin.Capacity}.");
                 }
             }
-            Console.WriteLine("Thosemare the Hamas terrorists that the AMAN Unit of the IDF is Tracking after them:");
-            // to build aman and check
+            Console.WriteLine("Those are the Hamas terrorists that the AMAN Unit of the IDF is Tracking after them:");
+            foreach (IntelTerrorist intelTerrorist in idf.amanUnit.IntelTerrorists)
+            {
+                Console.WriteLine($"Name: {intelTerrorist.Name}. Rank: {intelTerrorist.Rank}. Score: {intelTerrorist.Score}. Reports: {intelTerrorist.Reports}.");
+            }
         }
     }
 }
