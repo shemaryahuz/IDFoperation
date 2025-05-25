@@ -68,22 +68,45 @@ namespace IDFoperationApp
                 Console.WriteLine($"There are not enough bombs for the {strikeOption.UniqueName}, Please Suplly.");
             }
         }
-        public static void ShowMenue(IDF idf)
+        public static void ShowMenu(IDF idf)
         {
             Console.WriteLine(
                 $"Welcom {idf.CurrentCommander}! You Have Control on the IDF.\n" +
                 "The IDF hase AMAN unit for Intelligance Information about Hamas Terrorists,\n" +
                 "And Strike Unit with Strike option to Attack hamas terrorists.\n" +
-                "Choose on of the options below:\n" +
+                "Choose on of the options below (1, 2 etc.):\n" +
                 "1. Show The List of Terrorist that the AMAN Unit is Tracking after them.\n" +
                 "2. Show The List of Intelligance Messages that the AMAN Unit Holds.\n" +
                 "3. Show The List of Strike Options that the Strike Unit Holds.\n" +
-                "4. Attack a Terrorist according to last messages and the most dangerous Terrorist.\n" +
+                "4. Attack a Terrorist according to the most dangerous Terrorist.\n" +
                 "5. Exit.");
         }
-        public static void GetChoice()
+        public static string GetChoice()
         {
-
+            return Console.ReadLine();
+        }
+        public static bool ValidateChoice(string choice)
+        {
+            string validCoices = "12345";
+            return validCoices.Contains(choice);
+        }
+        public static void ActivateChoice(string choice, IDF idf, Hamas hamas)
+        {
+            switch (choice)
+            {
+                case "1":
+                    IDFCommander.ShowIntelTerrorists(idf);
+                    break;
+                case "2":
+                    IDFCommander.ShowIntelMessages(idf);
+                    break;
+                case "3":
+                    IDFCommander.ShowStrikeOptions(idf);
+                    break;
+                case "4":
+                    IDFCommander.Attack(idf, hamas);
+                    break;
+            }
         }
     }
 }
