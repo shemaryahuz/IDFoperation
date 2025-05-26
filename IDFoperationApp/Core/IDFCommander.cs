@@ -49,7 +49,19 @@ namespace IDFoperationApp
                 }
             }
         }
-        public static void Attack(IDF idf, Hamas hamas)
+        public static void AddMessage(IDF idf, string terroristName, string location, DateTime time)
+        {
+            foreach (IntelTerrorist terrorist in idf.amanUnit.IntelTerrorists)
+            {
+                if (terrorist.Name == terroristName)
+                {
+                    idf.amanUnit.AddIntelMessage(terrorist, location, time);
+                    return;
+                }
+            }
+            Console.WriteLine($"{terroristName} is not in the Database of AMAN.\n");
+        }
+        public static void AttackByDangerous(IDF idf, Hamas hamas)
         {
             IntelMessage intelMessage = idf.ChooseTarget();
             IStrikeOption strikeOption = idf.ChooseStrikeOption(intelMessage);
@@ -58,14 +70,15 @@ namespace IDFoperationApp
             {
                 idf.Attack(hamas, intelMessage.IntelTerrorist, strikeOption);
                 Console.WriteLine($"The Attack was successful! {intelMessage.IntelTerrorist.Name} is dead!");
+                Console.WriteLine($"The Capacity of the {strikeOption.UniqueName} is {strikeOption.Capacity}.\n");
             }
             else if (!intelMessage.IntelTerrorist.IsAlive)
             {
-                Console.WriteLine($"{intelMessage.IntelTerrorist.Name} is already dead.");
+                Console.WriteLine($"{intelMessage.IntelTerrorist.Name} is already dead.\n");
             }
             else
             {
-                Console.WriteLine($"There are not enough bombs for the {strikeOption.UniqueName}, Please Suplly.");
+                Console.WriteLine($"There are not enough bombs for the {strikeOption.UniqueName}, Please Suplly.\n");
             }
         }
         public static void Welcome(IDF idf)
@@ -107,7 +120,7 @@ namespace IDFoperationApp
                     IDFCommander.ShowStrikeOptions(idf);
                     break;
                 case "4":
-                    IDFCommander.Attack(idf, hamas);
+                    IDFCommander.AttackByDangerous(idf, hamas);
                     break;
             }
         }

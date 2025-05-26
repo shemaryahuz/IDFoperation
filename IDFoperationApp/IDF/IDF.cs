@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -36,7 +37,7 @@ namespace IDFoperationApp
                 case "Home":                       
                     return this.strikeUnit.StrikeOptionsData["Plains"][0];
                 case "Car":
-                    return this.strikeUnit.StrikeOptionsData["Artillery"][0];
+                    return this.strikeUnit.StrikeOptionsData["Artilleries"][0];
                 default:
                     return this.strikeUnit.StrikeOptionsData["Drones"][0];
             }

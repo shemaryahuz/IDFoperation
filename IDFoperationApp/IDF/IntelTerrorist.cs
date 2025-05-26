@@ -12,10 +12,6 @@ namespace IDFoperationApp
         public int Score;
         public IntelTerrorist(Terrorist terrorist):base(terrorist.Name, terrorist.Rank, terrorist.Weapons)
         {
-            this.Name = terrorist.Name;
-            this.Rank = terrorist.Rank;
-            this.IsAlive = terrorist.IsAlive;
-            this.Weapons = terrorist.Weapons;
             this.Reports = 0;
             this.Score = 0;
             foreach (string weapon in this.Weapons)
