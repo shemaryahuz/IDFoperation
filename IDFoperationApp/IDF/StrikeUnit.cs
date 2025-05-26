@@ -21,7 +21,7 @@ namespace IDFoperationApp
             };
             for (int i = 0; i < 5; i++)
             {
-                this.AddPlain($"F16{i + 1}");
+                this.AddPlain($"F16.{i + 1}");
                 this.AddDrone($"ZIK{i + 1}");
                 this.AddArtillery($"M109.{i + 1}");
             }
@@ -32,11 +32,11 @@ namespace IDFoperationApp
         }
         public void AddDrone(string droneName)
         {
-            this.StrikeOptionsData["Drones"].Add(new Plain(droneName));
+            this.StrikeOptionsData["Drones"].Add(new Drone(droneName));
         }
         public void AddArtillery(string artilleryName)
         {
-            this.StrikeOptionsData["Artilleris"].Add(new Plain(artilleryName));
+            this.StrikeOptionsData["Artilleries"].Add(new Artillery(artilleryName));
         }
     }
 }
