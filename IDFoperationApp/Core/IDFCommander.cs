@@ -8,15 +8,20 @@ namespace IDFoperationApp
 {
     internal static class IDFCommander
     {
-        public static void ShowIntelTerrorists(IDF idf)
+        private static void ShowIntelTerrorists(IDF idf)
         {
             Console.WriteLine("\nThose are the Hamas terrorists that the AMAN Unit of the IDF is Tracking after them:");
             foreach (IntelTerrorist intelTerrorist in idf.amanUnit.IntelTerrorists)
             {
-                Console.WriteLine($"Name: {intelTerrorist.Name}. Rank: {intelTerrorist.Rank}. Score: {intelTerrorist.Score}. Reports: {intelTerrorist.Reports}.");
+                Console.WriteLine(
+                    $"Name: {intelTerrorist.Name}. " +
+                    $"Rank: {intelTerrorist.Rank}. " +
+                    $"Score: {intelTerrorist.Score}. " +
+                    $"Reports: {intelTerrorist.Reports}. " +
+                    $"Status: {(intelTerrorist.IsAlive ? "Alive" : "Dead")}.");
             }
         }
-        public static void ShowIntelMessages(IDF idf)
+        private static void ShowIntelMessages(IDF idf)
         {
             Console.WriteLine("\nThose are the Intelligance Messages That the AMAN unit of the IDF holds:");
             foreach (IntelMessage message in idf.amanUnit.Messages)
@@ -24,7 +29,7 @@ namespace IDFoperationApp
                 Console.WriteLine($"Terrorist Name: {message.IntelTerrorist.Name}. Location: {message.Location}. Time: {message.Time}.");
             }
         }
-        public static void ShowStrikeOptions(IDF idf)
+        private static void ShowStrikeOptions(IDF idf)
         {
             Console.WriteLine("\nThose are the macins of strike options that the Strike Unit of the IDF holds:");
             foreach (string strikOption in idf.strikeUnit.StrikeOptionsData.Keys)
@@ -33,8 +38,8 @@ namespace IDFoperationApp
                 foreach (IStrikeOption machin in idf.strikeUnit.StrikeOptionsData[strikOption])
                 {
                     Console.Write(
-                        $"Name: {machin.UniqueName}." +
-                        $"Capacity: {machin.Capacity}." +
+                        $"Name: {machin.UniqueName}. " +
+                        $"Capacity: {machin.Capacity}. " +
                         $"Bombs Type: ");
                     foreach (string bomb in machin.BombsType)
                     {
@@ -49,26 +54,58 @@ namespace IDFoperationApp
                 }
             }
         }
-        public static void AddMessage(IDF idf, string terroristName, string location, DateTime time)
+        private static IntelMessage ChooseTarget(IDF idf)
         {
-            foreach (IntelTerrorist terrorist in idf.amanUnit.IntelTerrorists)
+            IntelMessage messageOfTarget = idf.amanUnit.Messages[idf.amanUnit.Messages.Count - 1];
+            foreach (IntelMessage intelMessage in idf.amanUnit.Messages)
             {
-                if (terrorist.Name == terroristName)
+                if (intelMessage.IntelTerrorist.Rank > messageOfTarget.IntelTerrorist.Rank && intelMessage.IntelTerrorist.IsAlive)
                 {
-                    idf.amanUnit.AddIntelMessage(terrorist, location, time);
-                    return;
+                    messageOfTarget = intelMessage;
                 }
             }
-            Console.WriteLine($"{terroristName} is not in the Database of AMAN.\n");
+            return messageOfTarget;
         }
-        public static void AttackByDangerous(IDF idf, Hamas hamas)
+        private static IStrikeOption ChooseStrikeOption(IDF idf, IntelMessage intelMessage)
         {
-            IntelMessage intelMessage = idf.ChooseTarget();
-            IStrikeOption strikeOption = idf.ChooseStrikeOption(intelMessage);
-            bool confirmed = idf.ConfirmAttack(intelMessage.IntelTerrorist, strikeOption);
+            switch (intelMessage.Location)
+            {
+                case "Home":
+                    return idf.strikeUnit.StrikeOptionsData["Plains"][0];
+                case "Car":
+                    return idf.strikeUnit.StrikeOptionsData["Artilleries"][0];
+                default:
+                    return idf.strikeUnit.StrikeOptionsData["Drones"][0];
+            }
+        }
+        private static bool ConfirmAttack(IntelTerrorist intelTerrorist, IStrikeOption strikeOption)
+        {
+            if (intelTerrorist.IsAlive && strikeOption.Capacity > 0)
+            {
+                return true;
+            }
+            return false;
+        }
+        private static void Attack(Hamas hamas, IntelTerrorist intelTerrorist, IStrikeOption strikeOption)
+        {
+            foreach (Terrorist terrorist in hamas.Terrorists)
+            {
+                if (terrorist.Name == intelTerrorist.Name)
+                {
+                    terrorist.IsAlive = false;
+                    intelTerrorist.IsAlive = false;
+                }
+            }
+            strikeOption.Capacity--;
+        }
+        private static void AttackByDangerous(IDF idf, Hamas hamas)
+        {
+            IntelMessage intelMessage = IDFCommander.ChooseTarget(idf);
+            IStrikeOption strikeOption = IDFCommander.ChooseStrikeOption(idf, intelMessage);
+            bool confirmed = IDFCommander.ConfirmAttack(intelMessage.IntelTerrorist, strikeOption);
             if (confirmed)
             {
-                idf.Attack(hamas, intelMessage.IntelTerrorist, strikeOption);
+                IDFCommander.Attack(hamas, intelMessage.IntelTerrorist, strikeOption);
                 Console.WriteLine($"The Attack was successful! {intelMessage.IntelTerrorist.Name} is dead!");
                 Console.WriteLine($"The Capacity of the {strikeOption.UniqueName} is {strikeOption.Capacity}.\n");
             }
@@ -78,7 +115,7 @@ namespace IDFoperationApp
             }
             else
             {
-                Console.WriteLine($"There are not enough bombs for the {strikeOption.UniqueName}, Please Suplly.\n");
+                Console.WriteLine($"There are not enough bombs for the {strikeOption.UniqueName}, Please Supply.\n");
             }
         }
         public static void Welcome(IDF idf)
@@ -88,7 +125,7 @@ namespace IDFoperationApp
         public static void ShowMenu()
         {
             Console.WriteLine(
-                "The IDF hase AMAN unit for Intelligance Information about Hamas Terrorists,\n" +
+                "\n\nThe IDF hase AMAN unit for Intelligance Information about Hamas Terrorists,\n" +
                 "And Strike Unit with Strike option to Attack hamas terrorists.\n\n" +
                 "Choose on of the options below (1, 2 etc.):\n" +
                 "1. Show The List of Terrorist that the AMAN Unit is Tracking after them.\n" +
