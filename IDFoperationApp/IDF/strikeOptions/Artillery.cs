@@ -17,11 +17,11 @@ namespace IDFoperationApp
             this.UniqueName = uniqeName;
             this.Capacity = 20;
             this.BombsType = new string[] { "Explosive shells" };
-            this.TypeOfTarget = new string[] { "Open areas" };
+            this.TypeOfTarget = new string[] { "Open area" };
         }
         public void Supply()
         {
-            this.Capacity += 40;
+            this.Capacity += 10;
         }
     }
 }
