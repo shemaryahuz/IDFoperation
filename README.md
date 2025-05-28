@@ -1,42 +1,52 @@
-﻿# IDF Operation - C# Project
+﻿
+# IDF Operation - C# Project
 
 ## 🧭 Overview
 
-This C# project models a simplified military operation involving the **IDF (Israel Defense Forces)** and **Hamas**.  
-The design leverages interfaces, abstract classes, and object-oriented principles to simulate organizational structure, military units, intelligence, and strategic strike operations.
+This C# project simulates a simplified military operation involving the **IDF (Israel Defense Forces)** and **Hamas**.  
+It uses interfaces, abstract classes, and OOP design to represent the structure and behavior of military organizations, intelligence analysis, and strike operations.
 
 ---
 
 ## 🏗️ Project Architecture
 
----
-### 🧱 Abstract Classes
+### 🧱 Abstract Classes & Interfaces
 
 - **`Organization`** *(abstract)*  
-  Base class for IDF and Hamas
+  Base class for both `IDF` and `Hamas`.
 
-- **`StrikeOption`** *(abstract)*  
-  Base class for different types of strike implementations
+- **`IStrikeOption`** *(interface)*  
+  Implemented by all strike option types (`Plain`, `Drone`, `Artillery`).
 
 ---
 
 ## 🔷 IDF Classes
 
 - **`IDF`** *(inherits from `Organization`)*
-  - Members:
-    - `AMAN` (Intelligence unit)
-    - `StrikeUnit` (Attack force)
+  - Composed of:
+    - `IntelUnit` - Gathers and processes intelligence
+    - `StrikeUnit` - Manages and executes strike operations
 
-- **`AMAN`**
-  - Holds: `List<IntelligenceMessage>`
+- **`IntelUnit`**
+  - Holds:
+    - `List<IntelMessage>` - Raw intelligence messages
+    - `List<IntelTerrorist>` - Identified terrorists (extended from `Terrorist`)
+  - Purpose: Processes messages and identifies threats
+
+- **`IntelMessage`**
+  - Represents collected raw intelligence data.
+
+- **`IntelTerrorist`** *(inherits from `Terrorist`)*
+  - Enhanced terrorist information obtained through analysis.
 
 - **`StrikeUnit`**
-  - Holds: `List<StrikeOption>` (can be `Plain`, `Drone`, `Artillery`, etc.)
+  - Holds:
+    - `Dictionary<string, List<IStrikeOption>>`  
+      - Keys: `"Plains"`, `"Drones"`, `"Artilleries"`  
+      - Values: Lists of strike option implementations
+  - Purpose: Executes different types of military strikes
 
-- **`IntelligenceMessage`**
-  - Contains intelligence data collected by AMAN
-
-- **Strike Option Types** *(inherit from `StrikeOption`)*
+- **Strike Option Types** *(implement `IStrikeOption`)*
   - `Plain`
   - `Drone`
   - `Artillery`
@@ -46,49 +56,77 @@ The design leverages interfaces, abstract classes, and object-oriented principle
 ## 🔴 Hamas Classes
 
 - **`Hamas`** *(inherits from `Organization`)*
-  - Holds: `List<Terrorist>`
+  - Holds:
+    - `List<Terrorist>` - Operative members
 
 - **`Terrorist`**
-  - Contains identifying information and traits
+  - Contains identifying information and traits.
 
 ---
 
-## 🎮 Controller Class
+## 🎮 Controller & Utility Classes
+
+- **`OperationManager`**
+  - Main driver of the program
+  - Manages user flow and calls relevant methods based on user input
+  - Delegates control to `Displayer` and `IDFCommander`
 
 - **`IDFCommander`**
-  - Manages the full simulation
-  - Responsibilities:
-    - Displays data
-    - Manipulates object states
-    - Initiates attacks
-    - Coordinates between IDF and Hamas objects
+  - Controls operations within the IDF:
+    - Handles intelligence processing
+    - Chooses and executes strike actions
+
+- **`Displayer`**
+  - Responsible for user interaction:
+    - Displays menu options
+    - Shows information about IDF units and status
+
+---
+
+## 🧑‍💻 User Interaction Flow
+
+The application presents the user with the following options:
+
+1. **View IDF Info**  
+   - Displays intelligence messages and identified terrorists  
+   - Shows available strike options and units
+
+2. **Choose Attack Method**  
+   - Select a method of attack (`Plain`, `Drone`, or `Artillery`)  
+   - Initiate a strike using available data
+
+The `OperationManager` coordinates this flow by calling methods in `Displayer` to show the menu and in `IDFCommander` to process the selected actions.
 
 ---
 
 ## 📁 Folder Structure
 ```
-/IDFOperationApp
+/IDFoperationApp
 │
 ├── Base/
-│ ├── Organization.cs
-│ └── StrikeOption.cs
-│
-├── IDF/
-│ ├── IDF.cs
-│ ├── AMAN.cs
-│ ├── StrikeUnit.cs
-│ ├── IntelligenceMessage.cs
-│ └── StrikeOptions/
-│   ├── Plain.cs
-│   ├── Drone.cs
-│   └── Artillery.cs
-│
-├── Hamas/
-│ ├── Hamas.cs
-│ └── Terrorist.cs
+│   ├── IStrikeOption.cs
+│   └── Organization.cs
 │
 ├── Core/
-  ├── IDFComander.cs
-  └── Program.cs
+│   ├── Displayer.cs
+│   ├── IDFCommander.cs
+│   └── OperationManager.cs
+│
+├── Hamas/
+│   ├── Hamas.cs
+│   └── Terrorist.cs
+│
+├── IDF/
+│   ├── IDF.cs
+│   ├── IntelMessage.cs
+│   ├── IntelTerrorist.cs
+│   ├── IntelUnit.cs
+│   ├── StrikeUnit.cs
+│   └── StrikeOptions/
+│       ├── Artillery.cs
+│       ├── Drone.cs
+│       └── Plain.cs
+│
+├── App.config
+└── Program.cs
 ```
-

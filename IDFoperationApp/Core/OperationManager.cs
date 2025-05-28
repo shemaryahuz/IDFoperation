@@ -7,13 +7,27 @@ using System.Threading.Tasks;
 
 namespace IDFoperationApp
 {
+    /// <summary>
+    /// Manages main operations and user choices for the application.
+    /// </summary>
     internal static class OperationManager
     {
+        /// <summary>
+        /// Checks if the user's menu choice is valid.
+        /// </summary>
+        /// <param name="choice">User input choice.</param>
+        /// <returns>True if valid, otherwise false.</returns>
         private static bool ValidateChoice(string choice)
         {
             string[] validCoices = { "1", "2", "3", "4", "5" };
             return validCoices.Contains(choice);
         }
+        /// <summary>
+        /// Executes the action corresponding to the user's choice.
+        /// </summary>
+        /// <param name="choice">User input choice.</param>
+        /// <param name="idf">IDF instance.</param>
+        /// <param name="hamas">Hamas instance.</param>
         private static void ActivateChoice(string choice, IDF idf, Hamas hamas)
         {
             switch (choice)
@@ -32,6 +46,11 @@ namespace IDFoperationApp
                     break;
             }
         }
+        /// <summary>
+        /// Runs the main operation loop, handling user input and actions.
+        /// </summary>
+        /// <param name="idf">IDF instance.</param>
+        /// <param name="hamas">Hamas instance.</param>
         private static void Operate(IDF idf, Hamas hamas)
         {
             bool toExit = false;
@@ -55,6 +74,9 @@ namespace IDFoperationApp
                 }
             }
         }
+        /// <summary>
+        /// Initializes and starts the operation manager.
+        /// </summary>
         public static void Start()
         {
             Hamas hamas = Hamas.GetInstans();
