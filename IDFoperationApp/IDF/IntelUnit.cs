@@ -29,8 +29,8 @@ namespace IDFoperationApp
             }
             return _Instance;
         }
-        public List<IntelTerrorist> IntelTerrorists = new List<IntelTerrorist>();
-        public List<IntelMessage> Messages = new List<IntelMessage>();
+        public List<IntelTerrorist> IntelTerrorists { get; set; } = new List<IntelTerrorist>();
+        public List<IntelMessage> Messages { get; set; } = new List<IntelMessage>();
         public void AddIntelTerrorist(Terrorist terrorist)
         {
             IntelTerrorist intelTerrorist = new IntelTerrorist(terrorist);
