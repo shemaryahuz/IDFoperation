@@ -10,30 +10,10 @@ namespace IDFoperationApp
     {
         static void Main(string[] args)
         {
-            Hamas hamas = new Hamas();
+            Hamas hamas = Hamas.GetInstans();
             IDF idf = new IDF(hamas);
             IDFCommander.Welcome(idf);
-            bool toExit = false;
-            while (!toExit)
-            {
-                IDFCommander.ShowMenu();
-                string choice = IDFCommander.GetChoice();
-                if (choice == "5")
-                {
-                    toExit = true;
-                    continue;
-                }
-                else if (!IDFCommander.ValidateChoice(choice))
-                {
-                    Console.WriteLine("Invalid Input!");
-                    continue;
-                }
-                else
-                {
-                    IDFCommander.ActivateChoice(choice, idf, hamas);
-                }
-            }
-            
+            IDFCommander.Operate(idf, hamas);
         }
     }
 }
