@@ -14,8 +14,8 @@ namespace IDFoperationApp
         {
             EstablishDate = new DateTime(1948, 5, 26).Date;
             CurrentCommander = "Eyal Zamir";
-            IntelUnit = new IntelUnit(hamas);
-            StrikeUnit = new StrikeUnit();
+            IntelUnit = IntelUnit.GetInstance(hamas);
+            StrikeUnit = StrikeUnit.GetInstance();
         }
         public static IDF GetInstance(Hamas hamas)
         {
