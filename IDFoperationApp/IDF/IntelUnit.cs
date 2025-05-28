@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace IDFoperationApp
 {
-    internal class AMAN
+    internal class IntelUnit
     {
         public List<IntelTerrorist> IntelTerrorists = new  List<IntelTerrorist>();
         public List<IntelMessage> Messages = new List<IntelMessage>();
-        public AMAN(Hamas hamas)
+        public IntelUnit(Hamas hamas)
         {
             foreach (Terrorist terrorist in hamas.Terrorists)
             {

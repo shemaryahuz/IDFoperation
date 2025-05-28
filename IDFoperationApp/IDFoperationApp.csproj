@@ -48,7 +48,7 @@
     <Compile Include="Core\IDFCommander.cs" />
     <Compile Include="Hamas\Hamas.cs" />
     <Compile Include="Hamas\Terrorist.cs" />
-    <Compile Include="IDF\AMAN.cs" />
+    <Compile Include="IDF\IntelUnit.cs" />
     <Compile Include="IDF\IDF.cs" />
     <Compile Include="IDF\IntelMessage.cs" />
     <Compile Include="IDF\IntelTerrorist.cs" />

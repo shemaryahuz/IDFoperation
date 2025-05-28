@@ -8,7 +8,7 @@ namespace IDFoperationApp
 {
     internal class Hamas: Organization
     {
-        private Hamas _Instance;
+        private static Hamas _Instance;
         private Hamas()
         {
             this.EstablishDate = new DateTime(1987, 12, 10).Date;
@@ -19,17 +19,18 @@ namespace IDFoperationApp
         }
         public static Hamas GetInstans()
         {
-            if (!_Instance)
+            if (_Instance is null)
             {
-
+                _Instance = new Hamas();
             }
+            return _Instance;
         }
         public List<Terrorist> Terrorists = new List<Terrorist>();
 
         public void AddTerrorist(string name, int rank, List<string> wepon)
         {
             Terrorist terrorist = new Terrorist(name, rank, wepon);
-            this.Terrorists.Add(terrorist);
+            Terrorists.Add(terrorist);
         }
     }
 }
