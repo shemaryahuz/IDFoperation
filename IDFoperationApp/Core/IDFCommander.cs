@@ -10,8 +10,8 @@ namespace IDFoperationApp
     {
         private static void ShowIntelTerrorists(IDF idf)
         {
-            Console.WriteLine("\nThose are the Hamas terrorists that the AMAN Unit of the IDF is Tracking after them:");
-            foreach (IntelTerrorist intelTerrorist in idf.amanUnit.IntelTerrorists)
+            Console.WriteLine("\nThose are the Hamas terrorists that the Intel Unit of the IDF is Tracking after them:");
+            foreach (IntelTerrorist intelTerrorist in idf.IntelUnit.IntelTerrorists)
             {
                 Console.WriteLine(
                     $"Name: {intelTerrorist.Name}. " +
@@ -23,8 +23,8 @@ namespace IDFoperationApp
         }
         private static void ShowIntelMessages(IDF idf)
         {
-            Console.WriteLine("\nThose are the Intelligance Messages That the AMAN unit of the IDF holds:");
-            foreach (IntelMessage message in idf.amanUnit.Messages)
+            Console.WriteLine("\nThose are the Intelligance Messages That the Intel unit of the IDF holds:");
+            foreach (IntelMessage message in idf.IntelUnit.Messages)
             {
                 Console.WriteLine($"Terrorist Name: {message.IntelTerrorist.Name}. Location: {message.Location}. Time: {message.Time}.");
             }
@@ -32,10 +32,10 @@ namespace IDFoperationApp
         private static void ShowStrikeOptions(IDF idf)
         {
             Console.WriteLine("\nThose are the macins of strike options that the Strike Unit of the IDF holds:");
-            foreach (string strikOption in idf.strikeUnit.StrikeOptionsData.Keys)
+            foreach (string strikOption in idf.StrikeUnit.StrikeOptionsData.Keys)
             {
                 Console.WriteLine($"{strikOption}:");
-                foreach (IStrikeOption machin in idf.strikeUnit.StrikeOptionsData[strikOption])
+                foreach (IStrikeOption machin in idf.StrikeUnit.StrikeOptionsData[strikOption])
                 {
                     Console.Write(
                         $"Name: {machin.UniqueName}. " +
@@ -56,8 +56,8 @@ namespace IDFoperationApp
         }
         private static IntelMessage ChooseTarget(IDF idf)
         {
-            IntelMessage messageOfTarget = idf.amanUnit.Messages[idf.amanUnit.Messages.Count - 1];
-            foreach (IntelMessage intelMessage in idf.amanUnit.Messages)
+            IntelMessage messageOfTarget = idf.IntelUnit.Messages[idf.IntelUnit.Messages.Count - 1];
+            foreach (IntelMessage intelMessage in idf.IntelUnit.Messages)
             {
                 if (intelMessage.IntelTerrorist.Rank > messageOfTarget.IntelTerrorist.Rank && intelMessage.IntelTerrorist.IsAlive)
                 {
@@ -71,11 +71,11 @@ namespace IDFoperationApp
             switch (intelMessage.Location)
             {
                 case "Home":
-                    return idf.strikeUnit.StrikeOptionsData["Plains"][0];
+                    return idf.StrikeUnit.StrikeOptionsData["Plains"][0];
                 case "Car":
-                    return idf.strikeUnit.StrikeOptionsData["Artilleries"][0];
+                    return idf.StrikeUnit.StrikeOptionsData["Artilleries"][0];
                 default:
-                    return idf.strikeUnit.StrikeOptionsData["Drones"][0];
+                    return idf.StrikeUnit.StrikeOptionsData["Drones"][0];
             }
         }
         private static bool ConfirmAttack(IntelTerrorist intelTerrorist, IStrikeOption strikeOption)
@@ -122,28 +122,28 @@ namespace IDFoperationApp
         {
             Console.WriteLine($"Welcom {idf.CurrentCommander}! You Have Control on the IDF\n");
         }
-        public static void ShowMenu()
+        private static void ShowMenu()
         {
             Console.WriteLine(
-                "\n\nThe IDF hase AMAN unit for Intelligance Information about Hamas Terrorists,\n" +
+                "\n\nThe IDF has Intel unit for Intelligance Information about Hamas Terrorists,\n" +
                 "And Strike Unit with Strike option to Attack hamas terrorists.\n\n" +
                 "Choose on of the options below (1, 2 etc.):\n" +
-                "1. Show The List of Terrorist that the AMAN Unit is Tracking after them.\n" +
-                "2. Show The List of Intelligance Messages that the AMAN Unit Holds.\n" +
+                "1. Show The List of Terrorist that the Intel Unit is Tracking after them.\n" +
+                "2. Show The List of Intelligance Messages that the Intel Unit Holds.\n" +
                 "3. Show The List of Strike Options that the Strike Unit Holds.\n" +
                 "4. Attack a Terrorist according to the most dangerous Terrorist.\n" +
                 "5. Exit.\n\n");
         }
-        public static string GetChoice()
+        private static string GetChoice()
         {
             return Console.ReadLine();
         }
-        public static bool ValidateChoice(string choice)
+        private static bool ValidateChoice(string choice)
         {
-            string validCoices = "12345";
+            string[] validCoices = { "1", "2", "3", "4", "5" };
             return validCoices.Contains(choice);
         }
-        public static void ActivateChoice(string choice, IDF idf, Hamas hamas)
+        private static void ActivateChoice(string choice, IDF idf, Hamas hamas)
         {
             switch (choice)
             {
@@ -159,6 +159,29 @@ namespace IDFoperationApp
                 case "4":
                     IDFCommander.AttackByDangerous(idf, hamas);
                     break;
+            }
+        }
+        public static void Operate(IDF idf, Hamas hamas)
+        {
+            bool toExit = false;
+            while (!toExit)
+            {
+                IDFCommander.ShowMenu();
+                string choice = IDFCommander.GetChoice();
+                if (choice == "5")
+                {
+                    toExit = true;
+                    continue;
+                }
+                else if (!IDFCommander.ValidateChoice(choice))
+                {
+                    Console.WriteLine("Invalid Input!");
+                    continue;
+                }
+                else
+                {
+                    IDFCommander.ActivateChoice(choice, idf, hamas);
+                }
             }
         }
     }

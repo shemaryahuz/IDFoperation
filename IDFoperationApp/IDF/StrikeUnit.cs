@@ -10,10 +10,10 @@ namespace IDFoperationApp
 
     internal class StrikeUnit
     {
-        public Dictionary<string, List<IStrikeOption>> StrikeOptionsData = new Dictionary<string, List<IStrikeOption>>();
-        public StrikeUnit() 
+        private static StrikeUnit _Instance;
+        private StrikeUnit() 
         {
-            this.StrikeOptionsData = new Dictionary<string, List<IStrikeOption>>
+            StrikeOptionsData = new Dictionary<string, List<IStrikeOption>>
             {
                 {"Plains", new List<IStrikeOption>() },
                 {"Drones", new List<IStrikeOption>() },
@@ -21,22 +21,31 @@ namespace IDFoperationApp
             };
             for (int i = 0; i < 5; i++)
             {
-                this.AddPlain($"F16.{i + 1}");
-                this.AddDrone($"ZIK{i + 1}");
-                this.AddArtillery($"M109.{i + 1}");
+                AddPlain($"F16.{i + 1}");
+                AddDrone($"ZIK{i + 1}");
+                AddArtillery($"M109.{i + 1}");
             }
         }
+        public static StrikeUnit GetInstance()
+        {
+            if (_Instance is null)
+            {
+                _Instance = new StrikeUnit();
+            }
+            return _Instance;
+        }
+        public Dictionary<string, List<IStrikeOption>> StrikeOptionsData { get; set; } = new Dictionary<string, List<IStrikeOption>>();
         public void AddPlain(string plainName)
         {
-            this.StrikeOptionsData["Plains"].Add(new Plain(plainName));
+            StrikeOptionsData["Plains"].Add(new Plain(plainName));
         }
         public void AddDrone(string droneName)
         {
-            this.StrikeOptionsData["Drones"].Add(new Drone(droneName));
+            StrikeOptionsData["Drones"].Add(new Drone(droneName));
         }
         public void AddArtillery(string artilleryName)
         {
-            this.StrikeOptionsData["Artilleries"].Add(new Artillery(artilleryName));
+            StrikeOptionsData["Artilleries"].Add(new Artillery(artilleryName));
         }
     }
 }

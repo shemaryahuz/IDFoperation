@@ -9,14 +9,23 @@ namespace IDFoperationApp
 {
     internal class IDF: Organization
     {
-        public AMAN amanUnit;
-        public StrikeUnit strikeUnit;
-        public IDF(Hamas hamas)
+        private static IDF _Instance;
+        private IDF(Hamas hamas)
         {
-            this.EstablishDate = new DateTime(1948, 5, 26).Date;
-            this.CurrentCommander = "Eyal Zamir";
-            this.amanUnit = new AMAN(hamas);
-            this.strikeUnit = new StrikeUnit();
+            EstablishDate = new DateTime(1948, 5, 26).Date;
+            CurrentCommander = "Eyal Zamir";
+            IntelUnit = IntelUnit.GetInstance(hamas);
+            StrikeUnit = StrikeUnit.GetInstance();
         }
+        public static IDF GetInstance(Hamas hamas)
+        {
+            if (_Instance is null)
+            {
+                _Instance = new IDF(hamas);
+            }
+            return _Instance;
+        }
+        public IntelUnit IntelUnit { get; set; }
+        public StrikeUnit StrikeUnit { get; set; }
     }
 }
