@@ -10,10 +10,7 @@ namespace IDFoperationApp
     {
         static void Main(string[] args)
         {
-            Hamas hamas = Hamas.GetInstans();
-            IDF idf = IDF.GetInstance(hamas);
-            IDFCommander.Welcome(idf);
-            IDFCommander.Operate(idf, hamas);
+            OperationManager.Start();
         }
     }
 }
