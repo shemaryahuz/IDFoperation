@@ -81,6 +81,22 @@ namespace IDFoperationApp
             string responseContent = await response.Content.ReadAsStringAsync();
             return responseContent;
         }
-
+        private string ExtractGeneratedText(string jsonResponse)
+        {
+            GeminiResponse geminiResponse = JsonSerializer.Deserialize<GeminiResponse>(jsonResponse, _jsonSerializerOptions);
+            string generatedText = geminiResponse?.Candidates?.FirstOrDefault()?.Content?.Parts?.FirstOrDefault().Text?.Trim();
+            return generatedText;
+        }
+        public async Task<string> GenerateTextAsync(string prompt)
+        {
+            if (string.IsNullOrWhiteSpace(prompt))
+            {
+                throw new ArgumentException("Prompt nust not be null or empty.", nameof(prompt));
+            }
+            GeminiRequest geminiRequest = BuildRequest(prompt);
+            string jsonResponse = await SendRequestAsync(geminiRequest);
+            string generatedText = ExtractGeneratedText(jsonResponse);
+            return generatedText;
+        }
     }
 }
