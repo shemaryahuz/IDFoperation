@@ -36,7 +36,7 @@ namespace IDFoperationApp
             _httpClient = new HttpClient();
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
-        public static GeminiService GetGemini(string apiKey, string modelName = "gemini-2.0-flash")
+        public static GeminiService GetInstance(string apiKey, string modelName = "gemini-2.0-flash")
         {
             if (_instance is null)
             {
@@ -55,6 +55,31 @@ namespace IDFoperationApp
                 throw new InvalidOperationException("Model name is not set.");
             }
             return $"https://generativelanguage.googleapis.com/v1beta/models/{_modelName}:generateContent?key={_apiKey}";
+        }
+        private GeminiRequest BuildRequest(string prompt)
+        {
+            GeminiRequest geminiRequest = new GeminiRequest
+            {
+                Contents = new List<Content>
+                {
+                    new Content
+                    {
+                        Parts = new List<Part>
+                        {
+                            new Part{Text = prompt}
+                        }
+                    }
+                }
+            };
+            return geminiRequest;
+        }
+        private async Task<string> SendRequestAsync(GeminiRequest geminiRequest)
+        {
+            string jsonRequest = JsonSerializer.Serialize(geminiRequest, _jsonSerializerOptions);
+            StringContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
+            HttpResponseMessage response = await _httpClient.PostAsync(GetApiUrl(), httpContent);
+            string responseContent = await response.Content.ReadAsStringAsync();
+            return responseContent;
         }
 
     }
