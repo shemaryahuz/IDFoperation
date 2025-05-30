@@ -10,7 +10,8 @@ namespace IDFoperationApp
     {
         static void Main(string[] args)
         {
-            OperationManager.Start();
+            //OperationManager.Start();
+
         }
     }
 }
