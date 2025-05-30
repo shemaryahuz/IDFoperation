@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -11,7 +12,30 @@ namespace IDFoperationApp
 {
     internal class GeminiService
     {
+        private HttpClient _httpClient;
+        private string _apiKey;
+        private string _modelName;
+        private JsonSerializerOptions _jsonSerializerOptions = new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true,
+            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
+        };
         private static GeminiService _instance;
+        private GeminiService(string apiKey, string modelName = "gemini-2.0-flash")
+        {
+            if (string.IsNullOrEmpty(apiKey))
+            {
+                throw new ArgumentNullException("API key must not be null or empty.", nameof(apiKey));
+            }
+            if (string.IsNullOrEmpty(modelName))
+            {
+                throw new ArgumentException("Model name must not be null or empty.", nameof(modelName);
+            }
+            _apiKey = apiKey;
+            _modelName = modelName;
+            _httpClient = new HttpClient();
+            _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        }
         public static GeminiService GetGemini(string apiKey, string modelName = "gemini-2.0-flash")
         {
             if (_instance is null)
@@ -20,17 +44,18 @@ namespace IDFoperationApp
             }
             return _instance;
         }
-        private GeminiService(string apiKey, string modelName = "gemini-2.0-flash")
+        private string GetApiUrl()
         {
-
+            if (string.IsNullOrWhiteSpace(_apiKey))
+            {
+                throw new InvalidOperationException("API key is not set.");
+            }
+            if (string.IsNullOrEmpty(_modelName))
+            {
+                throw new InvalidOperationException("Model name is not set.");
+            }
+            return $"https://generativelanguage.googleapis.com/v1beta/models/{_modelName}:generateContent?key={_apiKey}";
         }
-        private HttpClient httpClient;
-        private string _apiKey;
-        private string _modelName;
-        private JsonSerializerOptions _jsonSerializerOptions = new JsonSerializerOptions
-        {
-            PropertyNameCaseInsensitive = true,
-            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
-        };
+
     }
 }
