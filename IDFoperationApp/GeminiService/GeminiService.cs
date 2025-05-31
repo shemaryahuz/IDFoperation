@@ -29,7 +29,7 @@ namespace IDFoperationApp
             }
             if (string.IsNullOrEmpty(modelName))
             {
-                throw new ArgumentException("Model name must not be null or empty.", nameof(modelName);
+                throw new ArgumentException("Model name must not be null or empty.", nameof(modelName));
             }
             _apiKey = apiKey;
             _modelName = modelName;
@@ -71,6 +71,7 @@ namespace IDFoperationApp
                     }
                 }
             };
+            Console.WriteLine($"1 {geminiRequest.Contents.First().Parts.First().Text}");
             return geminiRequest;
         }
         private async Task<string> SendRequestAsync(GeminiRequest geminiRequest)
@@ -79,12 +80,14 @@ namespace IDFoperationApp
             StringContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
             HttpResponseMessage response = await _httpClient.PostAsync(GetApiUrl(), httpContent);
             string responseContent = await response.Content.ReadAsStringAsync();
+            Console.WriteLine(responseContent);
             return responseContent;
         }
         private string ExtractGeneratedText(string jsonResponse)
         {
             GeminiResponse geminiResponse = JsonSerializer.Deserialize<GeminiResponse>(jsonResponse, _jsonSerializerOptions);
             string generatedText = geminiResponse?.Candidates?.FirstOrDefault()?.Content?.Parts?.FirstOrDefault().Text?.Trim();
+            Console.WriteLine(generatedText);
             return generatedText;
         }
         public async Task<string> GenerateTextAsync(string prompt)
@@ -96,6 +99,7 @@ namespace IDFoperationApp
             GeminiRequest geminiRequest = BuildRequest(prompt);
             string jsonResponse = await SendRequestAsync(geminiRequest);
             string generatedText = ExtractGeneratedText(jsonResponse);
+            Console.WriteLine(generatedText);
             return generatedText;
         }
     }
