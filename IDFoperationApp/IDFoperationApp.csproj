@@ -224,7 +224,7 @@
     <Compile Include="Core\Displayer.cs" />
     <Compile Include="Core\IDFCommander.cs" />
     <Compile Include="Core\OperationManager.cs" />
-    <Compile Include="GeminiService\GeminiComunication.cs" />
+    <Compile Include="GeminiService\GeminiTypes.cs" />
     <Compile Include="GeminiService\GeminiPrompts.cs" />
     <Compile Include="GeminiService\GeminiService.cs" />
     <Compile Include="Hamas\Hamas.cs" />

@@ -131,3 +131,7 @@ global.json
 # Visual Studio generated folders
 .vs/
 **/.vs/
+
+IDFoperation/App.config
+
+.env
