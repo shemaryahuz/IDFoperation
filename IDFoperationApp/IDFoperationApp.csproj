@@ -79,9 +79,12 @@
     <Compile Include="Core\Displayer.cs" />
     <Compile Include="Core\IDFCommander.cs" />
     <Compile Include="Core\OperationManager.cs" />
+    <Compile Include="GeminiService\GeminiComunication.cs" />
+    <Compile Include="GeminiService\GeminiPrompts.cs" />
     <Compile Include="GeminiService\GeminiService.cs" />
     <Compile Include="Hamas\Hamas.cs" />
     <Compile Include="Hamas\Terrorist.cs" />
+    <Compile Include="Hamas\TerroristFactory.cs" />
     <Compile Include="IDF\IntelUnit.cs" />
     <Compile Include="IDF\IDF.cs" />
     <Compile Include="IDF\IntelMessage.cs" />
