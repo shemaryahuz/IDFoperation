@@ -13,18 +13,17 @@ namespace IDFoperationApp
     {
         static async Task Main(string[] args)
         {
-            Displayer.WelcomeMessage();
-            FactoryManager factory = FactoryManager.GetInstance();
-            await factory.CreateTerrorists();
+            //Displayer.WelcomeMessage();
+            await FactoryManager.CreateTerrorists();
             foreach (Terrorist terrorist in Hamas.GetInstance().Terrorists)
             {
                 Console.WriteLine(
-                    $"Name: {terrorist.Name}. " +
-                    $"Rank: {terrorist.Rank}. " +
-                    $"Status: {(terrorist.IsAlive ? "Alive" : "Dead")}. " +
-                    $"Weapons: {terrorist.Weapons[0]}");
+                    $"Name: {terrorist.Name}. Rank: {terrorist.Rank}. {(terrorist.IsAlive ? "Alive" : "Dead")}. Weapon: {terrorist.Weapons[0]}.");
             }
-
+            await FactoryManager.CreatePlains();
+            await FactoryManager.CreateDrones();
+            await FactoryManager.CreateArtilleries();
+            Displayer.ShowStrikeOptions();
             //OperationManager.Operate();
         }
     }

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -9,42 +10,48 @@ namespace IDFoperationApp
 {
     internal class FactoryManager
     {
-        private static FactoryManager _Instance;
-        public static FactoryManager GetInstance()
-        {
-            if (_Instance is null)
-            {
-                _Instance = new FactoryManager();
-            }
-            return _Instance;
-        }
-        private GeminiService gemini = GeminiService.GetInstance(GetApiKey());
+        private static GeminiService gemini = GeminiService.GetInstance(GetApiKey());
         private static string GetApiKey()
         {
             Env.Load(@"..\..\.env");
             string apiKey = Environment.GetEnvironmentVariable("GEMINI_API_KEY");
             return apiKey;
         }
-        public async Task CreateTerrorists()
+        public static async Task CreateTerrorists()
         {
-            for (int i = 0; i < 15; i++)
+            for (int i = 0; i < 3; i++)
             {
-                string jsonStr = await gemini.GenerateJsonStringAsync(GeminiPrompts.GetTerroristPrompt());
+                string jsonStr = await gemini.GenerateJsonStringAsync(TerroristFactory.GetTerroristPrompt());
                 Terrorist terrorist = TerroristFactory.ParseTerrorist(jsonStr);
                 TerroristFactory.AddTerrorist(terrorist);
             }
         }
-        public void CreateStrikeOptions()
+        public static async Task CreatePlains()
         {
-
+            for (int i = 0; i < 3; i++)
+            {
+                string jsonStr = await gemini.GenerateJsonStringAsync(StrikeFactory.GetPlainPrompt());
+                Plain plain = StrikeFactory.ParsePlain(jsonStr);
+                StrikeFactory.AddPlain(plain);
+            }
         }
-        public void CreateIntelMessages()
+        public static async Task CreateDrones()
         {
-
+            for (int i = 0; i < 3; i++)
+            {
+                string jsonStr = await gemini.GenerateJsonStringAsync(StrikeFactory.GetDronePrompt());
+                Drone drone = StrikeFactory.ParseDrone(jsonStr);
+                StrikeFactory.AddDrone(drone);
+            }
         }
-        public void CreateIntelTerrorists()
+        public static async Task CreateArtilleries()
         {
-
+            for (int i = 0; i < 3; i++)
+            {
+                string jsonStr = await gemini.GenerateJsonStringAsync(StrikeFactory.GetArtilleryPrompt());
+                Artillery artillery = StrikeFactory.ParseArtillery(jsonStr);
+                StrikeFactory.AddArtillery(artillery);
+            }
         }
     }
 }
