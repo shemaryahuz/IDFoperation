@@ -13,13 +13,6 @@ namespace IDFoperationApp
         
         private IntelUnit()
         {
-            foreach (Terrorist terrorist in Hamas.GetInstance().Terrorists)
-            {
-                this.AddIntelTerrorist(terrorist);
-            }
-            this.AddIntelMessage(this.IntelTerrorists[0], "Home", new DateTime(2025, 4, 20, 9, 30, 5));
-            this.AddIntelMessage(this.IntelTerrorists[1], "Car", new DateTime(2025, 5, 10, 11, 20, 7));
-            this.AddIntelMessage(this.IntelTerrorists[2], "Home", new DateTime(2025, 5, 25, 2, 25, 3));
         }
         public static IntelUnit GetInstance()
         {

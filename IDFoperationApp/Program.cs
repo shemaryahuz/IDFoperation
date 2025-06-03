@@ -18,7 +18,7 @@ namespace IDFoperationApp
             Env.Load(@"..\..\.env");
             string apiKey = Environment.GetEnvironmentVariable("GEMINI_API_KEY");
 
-            OperationManager.Operate();
+            //OperationManager.Operate();
         }
     }
 }
