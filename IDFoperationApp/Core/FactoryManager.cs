@@ -53,5 +53,14 @@ namespace IDFoperationApp
                 StrikeFactory.AddArtillery(artillery);
             }
         }
+        public static async Task CreateIntelMessage()
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                string jsonStr = await gemini.GenerateJsonStringAsync(IntelMessageFactory.GetMessagePrompt());
+                IntelMessage intelMessage = IntelMessageFactory.ParseIntelMessage(jsonStr);
+                IntelMessageFactory.AddIntelMessage(intelMessage);
+            }
+        }
     }
 }

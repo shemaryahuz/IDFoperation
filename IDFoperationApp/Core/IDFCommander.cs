@@ -9,53 +9,73 @@ namespace IDFoperationApp
 {
     internal static class IDFCommander
     {
-        public static IntelMessage ChooseTarget()
+        public static IntelMessage GetLastMessage()
         {
-            IntelMessage messageOfTarget = IDF.GetInstance().IntelUnit.Messages[IDF.GetInstance().IntelUnit.Messages.Count - 1];
-            foreach (IntelMessage intelMessage in IDF.GetInstance().IntelUnit.Messages)
+            IntelUnit intelUnit = IntelUnit.GetInstance();
+            return intelUnit.IntelMessages[intelUnit.IntelMessages.Count - 1];
+        }
+        public static IntelTerrorist GetDangerousTerrorist()
+        {
+            IntelUnit intelUnit = IntelUnit.GetInstance();
+            IntelTerrorist dangerousTerrorist = null;
+            foreach (IntelTerrorist intelTerrorist in intelUnit.IntelTerrorists.Values)
             {
-                if (intelMessage.IntelTerrorist.Rank > messageOfTarget.IntelTerrorist.Rank && intelMessage.IntelTerrorist.IsAlive)
+                if (dangerousTerrorist is null)
                 {
-                    messageOfTarget = intelMessage;
+                    dangerousTerrorist = intelTerrorist;
+                }
+                else if (intelTerrorist.Score > dangerousTerrorist.Score)
+                {
+                    dangerousTerrorist = intelTerrorist;
                 }
             }
-            return messageOfTarget;
+            return dangerousTerrorist;
+        }
+        public static IntelMessage GetDangerousMessage()
+        {
+            IntelUnit intelUnit = IntelUnit.GetInstance();
+            string terrorist = IDFCommander.GetLastMessage().TerroristName;
+            
         }
         public static IStrikeOption ChooseStrikeOption(IntelMessage intelMessage)
         {
+            StrikeUnit strikeUnit = StrikeUnit.GetInstance();
             switch (intelMessage.Location)
             {
                 case "Home":
-                    return IDF.GetInstance().StrikeUnit.StrikeOptionsData["Plains"][0];
+                    return strikeUnit.StrikeOptionsData["Plains"][0];
                 case "Car":
-                    return IDF.GetInstance().StrikeUnit.StrikeOptionsData["Artilleries"][0];
+                    return strikeUnit.StrikeOptionsData["Artilleries"][0];
                 default:
-                    return IDF.GetInstance().StrikeUnit.StrikeOptionsData["Drones"][0];
+                    return strikeUnit.StrikeOptionsData["Drones"][0];
             }
         }
-        public static bool ConfirmAttack(IntelTerrorist intelTerrorist, IStrikeOption strikeOption)
+        public static bool ConfirmAttack(string terroristName, IStrikeOption strikeOption)
         {
-            if (intelTerrorist.IsAlive && strikeOption.Capacity > 0)
+            IntelUnit intelUnit = IntelUnit.GetInstance();
+            if (intelUnit.IntelTerrorists[terroristName].IsAlive && strikeOption.Capacity > 0)
             {
                 return true;
             }
             return false;
         }
-        public static void Attack(IntelTerrorist intelTerrorist, IStrikeOption strikeOption)
+        public static void Attack(string terroristName, IStrikeOption strikeOption)
         {
-            foreach (Terrorist terrorist in Hamas.GetInstance().Terrorists)
+            Hamas hamas = Hamas.GetInstance();
+            IntelUnit intelUnit = IntelUnit.GetInstance();
+            foreach (Terrorist terrorist in hamas.Terrorists)
             {
-                if (terrorist.Name == intelTerrorist.Name)
+                if (terrorist.Name == terroristName)
                 {
                     terrorist.IsAlive = false;
-                    intelTerrorist.IsAlive = false;
+                    intelUnit.IntelTerrorists[terroristName].IsAlive = false;
                 }
             }
             strikeOption.Capacity--;
         }
         public static void AttackByDangerous()
         {
-            IntelMessage intelMessage = IDFCommander.ChooseTarget();
+            IntelMessage intelMessage = IDFCommander.GetDangerousMessage();
             IStrikeOption strikeOption = IDFCommander.ChooseStrikeOption(intelMessage);
             bool confirmed = IDFCommander.ConfirmAttack(intelMessage.IntelTerrorist, strikeOption);
             if (confirmed)

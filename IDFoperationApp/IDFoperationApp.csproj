@@ -230,6 +230,7 @@
     <Compile Include="Hamas\Hamas.cs" />
     <Compile Include="Hamas\Terrorist.cs" />
     <Compile Include="Hamas\TerroristFactory.cs" />
+    <Compile Include="IDF\IntelUnit\IntelMessageFactory.cs" />
     <Compile Include="IDF\IntelUnit\IntelUnit.cs" />
     <Compile Include="IDF\IDF.cs" />
     <Compile Include="IDF\IntelUnit\IntelMessage.cs" />

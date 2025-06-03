@@ -24,5 +24,19 @@ namespace IDFoperationApp
         }
         public Dictionary<string, IntelTerrorist> IntelTerrorists { get; set; } = new Dictionary<string, IntelTerrorist>();
         public List<IntelMessage> IntelMessages { get; set; } = new List<IntelMessage>();
+        public void AddIntelTerrorist(string terroristName)
+        {
+            Hamas hamas = Hamas.GetInstance();
+            foreach (Terrorist terrorist in hamas.Terrorists)
+            {
+                if(terrorist.Name == terroristName)
+                {
+                    IntelTerrorist intelTerrorist = new IntelTerrorist(terrorist);
+                    IntelTerrorists.Add(terroristName, intelTerrorist);
+                    break;
+                }
+            }
+            
+        }
     }
 }
