@@ -23,8 +23,8 @@ namespace IDFoperationApp
             await FactoryManager.CreatePlains();
             await FactoryManager.CreateDrones();
             await FactoryManager.CreateArtilleries();
-            Displayer.ShowStrikeOptions();
-            //OperationManager.Operate();
+            //Displayer.ShowStrikeOptions();
+            OperationManager.Operate();
         }
     }
 }
