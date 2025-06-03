@@ -32,5 +32,9 @@ namespace IDFoperationApp
                 return null;
             }
         }
+        public static void AddTerrorist(Terrorist terrorist)
+        {
+            Hamas.GetInstance().Terrorists.Add(terrorist);
+        }
     }
 }

@@ -14,25 +14,25 @@ namespace IDFoperationApp
             string[] validCoices = { "1", "2", "3", "4", "5" };
             return validCoices.Contains(choice);
         }
-        private static void ActivateChoice(string choice, IDF idf, Hamas hamas)
+        private static void ActivateChoice(string choice)
         {
             switch (choice)
             {
                 case "1":
-                    Displayer.ShowIntelTerrorists(idf);
+                    Displayer.ShowIntelTerrorists();
                     break;
                 case "2":
-                    Displayer.ShowIntelMessages(idf);
+                    Displayer.ShowIntelMessages();
                     break;
                 case "3":
-                    Displayer.ShowStrikeOptions(idf);
+                    Displayer.ShowStrikeOptions();
                     break;
                 case "4":
-                    IDFCommander.AttackByDangerous(idf, hamas);
+                    IDFCommander.AttackByDangerous();
                     break;
             }
         }
-        private static void Operate(IDF idf, Hamas hamas)
+        public static void Operate()
         {
             bool toExit = false;
             while (!toExit)
@@ -51,16 +51,9 @@ namespace IDFoperationApp
                 }
                 else
                 {
-                    OperationManager.ActivateChoice(choice, idf, hamas);
+                    OperationManager.ActivateChoice(choice);
                 }
             }
-        }
-        public static void Start()
-        {
-            Hamas hamas = Hamas.GetInstans();
-            IDF idf = IDF.GetInstance(hamas);
-            Displayer.WelcomeMessage(idf);
-            OperationManager.Operate(idf, hamas);
         }
     }
 }

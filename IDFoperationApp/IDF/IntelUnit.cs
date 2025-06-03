@@ -11,9 +11,9 @@ namespace IDFoperationApp
     {
         private static IntelUnit _Instance;
         
-        private IntelUnit(Hamas hamas)
+        private IntelUnit()
         {
-            foreach (Terrorist terrorist in hamas.Terrorists)
+            foreach (Terrorist terrorist in Hamas.GetInstance().Terrorists)
             {
                 this.AddIntelTerrorist(terrorist);
             }
@@ -21,11 +21,11 @@ namespace IDFoperationApp
             this.AddIntelMessage(this.IntelTerrorists[1], "Car", new DateTime(2025, 5, 10, 11, 20, 7));
             this.AddIntelMessage(this.IntelTerrorists[2], "Home", new DateTime(2025, 5, 25, 2, 25, 3));
         }
-        public static IntelUnit GetInstance(Hamas hamas)
+        public static IntelUnit GetInstance()
         {
             if (_Instance is null)
             {
-                _Instance = new IntelUnit(hamas);
+                _Instance = new IntelUnit();
             }
             return _Instance;
         }

@@ -9,10 +9,10 @@ namespace IDFoperationApp
 {
     internal static class IDFCommander
     {
-        public static IntelMessage ChooseTarget(IDF idf)
+        public static IntelMessage ChooseTarget()
         {
-            IntelMessage messageOfTarget = idf.IntelUnit.Messages[idf.IntelUnit.Messages.Count - 1];
-            foreach (IntelMessage intelMessage in idf.IntelUnit.Messages)
+            IntelMessage messageOfTarget = IDF.GetInstance().IntelUnit.Messages[IDF.GetInstance().IntelUnit.Messages.Count - 1];
+            foreach (IntelMessage intelMessage in IDF.GetInstance().IntelUnit.Messages)
             {
                 if (intelMessage.IntelTerrorist.Rank > messageOfTarget.IntelTerrorist.Rank && intelMessage.IntelTerrorist.IsAlive)
                 {
@@ -21,16 +21,16 @@ namespace IDFoperationApp
             }
             return messageOfTarget;
         }
-        public static IStrikeOption ChooseStrikeOption(IDF idf, IntelMessage intelMessage)
+        public static IStrikeOption ChooseStrikeOption(IntelMessage intelMessage)
         {
             switch (intelMessage.Location)
             {
                 case "Home":
-                    return idf.StrikeUnit.StrikeOptionsData["Plains"][0];
+                    return IDF.GetInstance().StrikeUnit.StrikeOptionsData["Plains"][0];
                 case "Car":
-                    return idf.StrikeUnit.StrikeOptionsData["Artilleries"][0];
+                    return IDF.GetInstance().StrikeUnit.StrikeOptionsData["Artilleries"][0];
                 default:
-                    return idf.StrikeUnit.StrikeOptionsData["Drones"][0];
+                    return IDF.GetInstance().StrikeUnit.StrikeOptionsData["Drones"][0];
             }
         }
         public static bool ConfirmAttack(IntelTerrorist intelTerrorist, IStrikeOption strikeOption)
@@ -41,9 +41,9 @@ namespace IDFoperationApp
             }
             return false;
         }
-        public static void Attack(Hamas hamas, IntelTerrorist intelTerrorist, IStrikeOption strikeOption)
+        public static void Attack(IntelTerrorist intelTerrorist, IStrikeOption strikeOption)
         {
-            foreach (Terrorist terrorist in hamas.Terrorists)
+            foreach (Terrorist terrorist in Hamas.GetInstance().Terrorists)
             {
                 if (terrorist.Name == intelTerrorist.Name)
                 {
@@ -53,14 +53,14 @@ namespace IDFoperationApp
             }
             strikeOption.Capacity--;
         }
-        public static void AttackByDangerous(IDF idf, Hamas hamas)
+        public static void AttackByDangerous()
         {
-            IntelMessage intelMessage = IDFCommander.ChooseTarget(idf);
-            IStrikeOption strikeOption = IDFCommander.ChooseStrikeOption(idf, intelMessage);
+            IntelMessage intelMessage = IDFCommander.ChooseTarget();
+            IStrikeOption strikeOption = IDFCommander.ChooseStrikeOption(intelMessage);
             bool confirmed = IDFCommander.ConfirmAttack(intelMessage.IntelTerrorist, strikeOption);
             if (confirmed)
             {
-                IDFCommander.Attack(hamas, intelMessage.IntelTerrorist, strikeOption);
+                IDFCommander.Attack(intelMessage.IntelTerrorist, strikeOption);
                 Console.WriteLine($"The Attack was successful! {intelMessage.IntelTerrorist.Name} is dead!");
                 Console.WriteLine($"The Capacity of the {strikeOption.UniqueName} is {strikeOption.Capacity}.\n");
             }
