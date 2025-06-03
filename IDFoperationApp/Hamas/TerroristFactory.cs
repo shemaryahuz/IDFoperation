@@ -12,6 +12,7 @@ namespace IDFoperationApp
     {
         private static JsonSerializerOptions _jsonSerializerOptions = new JsonSerializerOptions
         {
+            IncludeFields = true,
             PropertyNameCaseInsensitive = true,
             DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
         };

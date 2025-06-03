@@ -33,6 +33,7 @@ namespace IDFoperationApp
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             _jsonSerializerOptions = new JsonSerializerOptions
             {
+                IncludeFields = true,
                 PropertyNameCaseInsensitive = true,
                 DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
             };

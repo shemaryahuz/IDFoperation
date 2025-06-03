@@ -9,13 +9,13 @@ namespace IDFoperationApp
 {
     internal class Terrorist
     {
-        [JsonPropertyName("name")]
+        [JsonPropertyName("Name")]
         public string Name;
-        [JsonPropertyName("rank")]
+        [JsonPropertyName("Rank")]
         public int Rank;
-        [JsonPropertyName("isAlives")]
+        [JsonPropertyName("IsAlive")]
         public bool IsAlive;
-        [JsonPropertyName("weapons")]
+        [JsonPropertyName("Weapons")]
         public List<string> Weapons = new List<string>();
         public Terrorist(string name, int rank, List<string> weapons)
         {

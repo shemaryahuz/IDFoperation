@@ -222,6 +222,7 @@
     <Compile Include="Base\IStrikeOption.cs" />
     <Compile Include="Base\Organization.cs" />
     <Compile Include="Core\Displayer.cs" />
+    <Compile Include="Core\FactoryManager.cs" />
     <Compile Include="Core\IDFCommander.cs" />
     <Compile Include="Core\OperationManager.cs" />
     <Compile Include="GeminiService\GeminiClasses.cs" />

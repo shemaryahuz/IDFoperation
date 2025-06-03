@@ -14,9 +14,16 @@ namespace IDFoperationApp
         static async Task Main(string[] args)
         {
             Displayer.WelcomeMessage();
-            
-            Env.Load(@"..\..\.env");
-            string apiKey = Environment.GetEnvironmentVariable("GEMINI_API_KEY");
+            FactoryManager factory = FactoryManager.GetInstance();
+            await factory.CreateTerrorists();
+            foreach (Terrorist terrorist in Hamas.GetInstance().Terrorists)
+            {
+                Console.WriteLine(
+                    $"Name: {terrorist.Name}. " +
+                    $"Rank: {terrorist.Rank}. " +
+                    $"Status: {(terrorist.IsAlive ? "Alive" : "Dead")}. " +
+                    $"Weapons: {terrorist.Weapons[0]}");
+            }
 
             //OperationManager.Operate();
         }
