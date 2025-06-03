@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Configuration;
 using DotNetEnv;
+using System.Text.Json;
 
 namespace IDFoperationApp
 {
@@ -15,9 +16,6 @@ namespace IDFoperationApp
             //OperationManager.Start();
             Env.Load(@"..\..\.env");
             string apiKey = Environment.GetEnvironmentVariable("GEMINI_API_KEY");
-            GeminiService geminiService = GeminiService.GetInstance(apiKey);
-            string prompt = "Hello gemini";
-            await geminiService.GenerateTextAsync(prompt);
         }
     }
 }

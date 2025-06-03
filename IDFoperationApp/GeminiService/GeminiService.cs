@@ -12,14 +12,10 @@ namespace IDFoperationApp
 {
     internal class GeminiService
     {
-        private HttpClient _httpClient;
-        private string _apiKey;
-        private string _modelName;
-        private JsonSerializerOptions _jsonSerializerOptions = new JsonSerializerOptions
-        {
-            PropertyNameCaseInsensitive = true,
-            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
-        };
+        private readonly static HttpClient _httpClient = new HttpClient();
+        private readonly string _apiKey;
+        private readonly string _modelName;
+        private readonly JsonSerializerOptions _jsonSerializerOptions;
         private static GeminiService _instance;
         private GeminiService(string apiKey, string modelName = "gemini-2.0-flash")
         {
@@ -33,8 +29,13 @@ namespace IDFoperationApp
             }
             _apiKey = apiKey;
             _modelName = modelName;
-            _httpClient = new HttpClient();
+            _httpClient.DefaultRequestHeaders.Accept.Clear(); 
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            _jsonSerializerOptions = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true,
+                DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
+            };
         }
         public static GeminiService GetInstance(string apiKey, string modelName = "gemini-2.0-flash")
         {
@@ -69,28 +70,30 @@ namespace IDFoperationApp
                             new Part{Text = prompt}
                         }
                     }
-                }
+                },
+                GenerationConfig = new GenerationConfig()
             };
-            Console.WriteLine($"1 {geminiRequest.Contents.First().Parts.First().Text}");
             return geminiRequest;
         }
         private async Task<string> SendRequestAsync(GeminiRequest geminiRequest)
         {
-            string jsonRequest = JsonSerializer.Serialize(geminiRequest, _jsonSerializerOptions);
-            StringContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
+            string jsonPayLoad = JsonSerializer.Serialize(geminiRequest, _jsonSerializerOptions);
+            StringContent httpContent = new StringContent(jsonPayLoad, Encoding.UTF8, "application/json");
             HttpResponseMessage response = await _httpClient.PostAsync(GetApiUrl(), httpContent);
             string responseContent = await response.Content.ReadAsStringAsync();
-            Console.WriteLine(responseContent);
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new HttpRequestException($"API request failed with status {response.StatusCode}: {responseContent}");
+            }
             return responseContent;
         }
         private string ExtractGeneratedText(string jsonResponse)
         {
             GeminiResponse geminiResponse = JsonSerializer.Deserialize<GeminiResponse>(jsonResponse, _jsonSerializerOptions);
-            string generatedText = geminiResponse?.Candidates?.FirstOrDefault()?.Content?.Parts?.FirstOrDefault().Text?.Trim();
-            Console.WriteLine(generatedText);
+            string generatedText = geminiResponse?.Candidates?.FirstOrDefault()?.Content?.Parts?.FirstOrDefault()?.Text;
             return generatedText;
         }
-        public async Task<string> GenerateTextAsync(string prompt)
+        public async Task<string> GenerateJsonStringAsync(string prompt)
         {
             if (string.IsNullOrWhiteSpace(prompt))
             {
@@ -99,8 +102,26 @@ namespace IDFoperationApp
             GeminiRequest geminiRequest = BuildRequest(prompt);
             string jsonResponse = await SendRequestAsync(geminiRequest);
             string generatedText = ExtractGeneratedText(jsonResponse);
-            Console.WriteLine(generatedText);
-            return generatedText;
+            if (string.IsNullOrWhiteSpace(generatedText))
+            {
+                return null;
+            }
+            string cleanedText = generatedText.Trim();
+            if (cleanedText.StartsWith("```json", StringComparison.OrdinalIgnoreCase))
+            {
+                cleanedText = cleanedText.Substring(7);
+            }
+            else if (cleanedText.StartsWith("```"))
+            {
+                cleanedText = cleanedText.Substring(3);
+            }
+
+            if (cleanedText.EndsWith("```"))
+            {
+                cleanedText = cleanedText.Substring(0, cleanedText.Length - 3);
+            }
+
+            return cleanedText.Trim();
         }
     }
 }
