@@ -109,24 +109,32 @@ The `OperationManager` coordinates this flow by calling methods in `Displayer` t
 │
 ├── Core/
 │   ├── Displayer.cs
+│   ├── FactoryManager.cs
 │   ├── IDFCommander.cs
 │   └── OperationManager.cs
 │
+├── GeminiService/
+│   ├── GeminiClasses.cs
+│   └── GeminiService.cs
+│
 ├── Hamas/
 │   ├── Hamas.cs
-│   └── Terrorist.cs
+│   ├── Terrorist.cs
+│   └── TerroristFactory.cs
 │
 ├── IDF/
 │   ├── IDF.cs
-│   ├── IntelMessage.cs
-│   ├── IntelTerrorist.cs
-│   ├── IntelUnit.cs
-│   ├── StrikeUnit.cs
-│   └── StrikeOptions/
+│   ├── IntelUnit/
+│   │   ├── IntelMessage.cs
+│   │   ├── IntelMessageFactory.cs
+│   │   ├── IntelTerrorist.cs
+│   │   └── IntelUnit.cs
+│   └── StrikeUnit/
 │       ├── Artillery.cs
 │       ├── Drone.cs
-│       └── Plain.cs
+│       ├── Plain.cs
+│       ├── StrikeFactory.cs
+│       └── StrikeUnit.cs
 │
-├── App.config
 └── Program.cs
 ```
