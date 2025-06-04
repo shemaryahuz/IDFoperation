@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace IDFoperationApp
 {
+    // This class represents an artillery of the Strike Unit
     internal class Artillery: IStrikeOption
     {
         [JsonPropertyName("uniqueName")]

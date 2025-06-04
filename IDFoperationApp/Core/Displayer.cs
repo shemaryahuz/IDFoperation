@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace IDFoperationApp
 {
+    // This class is responsible for printing data to the console
     internal static class Displayer
     {
         public static void WelcomeMessage()

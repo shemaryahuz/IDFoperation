@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace IDFoperationApp
 {
+    // classes for the templates needed to the Gemini API
     public class GeminiRequest
     {
         [JsonPropertyName("contents")]

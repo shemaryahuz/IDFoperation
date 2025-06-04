@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace IDFoperationApp
 {
+    // This class is responsible for the management of the IDFoperation, using the Displayer and IDFcommander
     internal static class OperationManager
     {
         private static bool ValidateChoice(string choice)

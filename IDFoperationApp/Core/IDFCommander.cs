@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace IDFoperationApp
 {
+    // This class is responsible to the actions in IDF
     internal static class IDFCommander
     {
         public static IntelTerrorist GetDangerousTerrorist()

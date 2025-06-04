@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace IDFoperationApp
 {
+    // This class is responsible for creating objects for the operation, using the factories
     internal class FactoryManager
     {
         private static GeminiService gemini = GeminiService.GetInstance(GetApiKey());

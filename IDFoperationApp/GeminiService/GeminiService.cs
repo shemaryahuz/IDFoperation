@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace IDFoperationApp
 {
+    // this class is responsible for the services of Gemini, using httpClient and Gemini API KEY
     internal class GeminiService
     {
         private readonly static HttpClient _httpClient = new HttpClient();
