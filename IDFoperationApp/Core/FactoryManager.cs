@@ -20,6 +20,7 @@ namespace IDFoperationApp
         }
         public static async Task CreateTerrorists()
         {
+            Console.WriteLine("Creating Terrorists...");
             for (int i = 0; i < 3; i++)
             {
                 string jsonStr = await gemini.GenerateJsonStringAsync(TerroristFactory.GetTerroristPrompt());
@@ -29,6 +30,7 @@ namespace IDFoperationApp
         }
         public static async Task CreatePlains()
         {
+            Console.WriteLine("Creating Plains...");
             for (int i = 0; i < 3; i++)
             {
                 string jsonStr = await gemini.GenerateJsonStringAsync(StrikeFactory.GetPlainPrompt());
@@ -38,6 +40,7 @@ namespace IDFoperationApp
         }
         public static async Task CreateDrones()
         {
+            Console.WriteLine("Creating Drones...");
             for (int i = 0; i < 3; i++)
             {
                 string jsonStr = await gemini.GenerateJsonStringAsync(StrikeFactory.GetDronePrompt());
@@ -47,6 +50,7 @@ namespace IDFoperationApp
         }
         public static async Task CreateArtilleries()
         {
+            Console.WriteLine("Creating Artilleriess...");
             for (int i = 0; i < 3; i++)
             {
                 string jsonStr = await gemini.GenerateJsonStringAsync(StrikeFactory.GetArtilleryPrompt());
@@ -56,6 +60,7 @@ namespace IDFoperationApp
         }
         public static async Task CreateIntelMessage()
         {
+            Console.WriteLine("Creating Intelligance Messages...");
             for (int i = 0; i < 3; i++)
             {
                 string jsonStr = await gemini.GenerateJsonStringAsync(IntelMessageFactory.GetMessagePrompt());

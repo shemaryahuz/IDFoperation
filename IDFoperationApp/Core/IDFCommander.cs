@@ -36,7 +36,7 @@ namespace IDFoperationApp
             }
             return intelUnit.IntelMessages[intelUnit.IntelMessages.Count - 1];
         }
-        public static IStrikeOption ChooseStrikeOption(IntelMessage intelMessage)
+        private static IStrikeOption ChooseStrikeOption(IntelMessage intelMessage)
         {
             StrikeUnit strikeUnit = StrikeUnit.GetInstance();
             switch (intelMessage.Location)
@@ -49,7 +49,7 @@ namespace IDFoperationApp
                     return strikeUnit.StrikeOptionsData["Drones"][0];
             }
         }
-        public static bool ConfirmAttack(string terroristName, IStrikeOption strikeOption)
+        private static bool ConfirmAttack(string terroristName, IStrikeOption strikeOption)
         {
             IntelUnit intelUnit = IntelUnit.GetInstance();
             if (intelUnit.IntelTerrorists[terroristName].IsAlive && strikeOption.Capacity > 0)
@@ -58,7 +58,7 @@ namespace IDFoperationApp
             }
             return false;
         }
-        public static void Attack(string terroristName, IStrikeOption strikeOption)
+        private static void Attack(string terroristName, IStrikeOption strikeOption)
         {
             Hamas hamas = Hamas.GetInstance();
             IntelUnit intelUnit = IntelUnit.GetInstance();
