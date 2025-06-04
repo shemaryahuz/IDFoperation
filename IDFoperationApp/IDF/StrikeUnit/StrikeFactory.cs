@@ -18,15 +18,15 @@ namespace IDFoperationApp
         };
         public static string GetPlainPrompt()
         {
-            return "Generate a JSON object for a Plain with a propery of 'uniqueName' (string)";
+            return "Generate a JSON object for a Plain with a propery of 'uniqueName' (string that represent the Plain's name)";
         }
         public static string GetDronePrompt()
         {
-            return "Generate a JSON object for a Drone with a propery of 'uniqueName' (string)";
+            return "Generate a JSON object for a Drone with a propery of 'uniqueName' (string that represent the Drone's name)";
         }
         public static string GetArtilleryPrompt()
         {
-            return "Generate a JSON object for a Artillery with a propery of 'uniqueName' (string)";
+            return "Generate a JSON object for a Artillery with a propery of 'uniqueName' (string that represent the Artillery's name)";
         }
         public static Plain ParsePlain(string json)
         {

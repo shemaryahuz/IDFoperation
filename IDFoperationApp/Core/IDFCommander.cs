@@ -9,33 +9,47 @@ namespace IDFoperationApp
 {
     internal static class IDFCommander
     {
-        public static IntelMessage GetLastMessage()
-        {
-            IntelUnit intelUnit = IntelUnit.GetInstance();
-            return intelUnit.IntelMessages[intelUnit.IntelMessages.Count - 1];
-        }
         public static IntelTerrorist GetDangerousTerrorist()
         {
             IntelUnit intelUnit = IntelUnit.GetInstance();
             IntelTerrorist dangerousTerrorist = null;
             foreach (IntelTerrorist intelTerrorist in intelUnit.IntelTerrorists.Values)
             {
-                if (dangerousTerrorist is null)
+                if (dangerousTerrorist is null && intelTerrorist.IsAlive)
                 {
                     dangerousTerrorist = intelTerrorist;
                 }
-                else if (intelTerrorist.Score > dangerousTerrorist.Score)
+                else if (intelTerrorist.Score > dangerousTerrorist.Score && intelTerrorist.IsAlive)
                 {
                     dangerousTerrorist = intelTerrorist;
                 }
             }
+            if (!dangerousTerrorist.IsAlive)
+            {
+                return null;
+            }
             return dangerousTerrorist;
         }
-        public static IntelMessage GetDangerousMessage()
+        public static IntelMessage GetLastMessage()
         {
             IntelUnit intelUnit = IntelUnit.GetInstance();
-            string terrorist = IDFCommander.GetLastMessage().TerroristName;
-            
+            if (intelUnit.IntelMessages.Count == 0)
+            {
+                return null;
+            }
+            return intelUnit.IntelMessages[intelUnit.IntelMessages.Count - 1];
+        }
+        public static IntelMessage GetMessageByName(string name)
+        {
+            IntelUnit intelUnit = IntelUnit.GetInstance();
+            foreach (IntelMessage message in intelUnit.IntelMessages)
+            {
+                if (message.TerroristName == name)
+                {
+                    return message;
+                }
+            }
+            return null;
         }
         public static IStrikeOption ChooseStrikeOption(IntelMessage intelMessage)
         {
@@ -75,23 +89,6 @@ namespace IDFoperationApp
         }
         public static void AttackByDangerous()
         {
-            IntelMessage intelMessage = IDFCommander.GetDangerousMessage();
-            IStrikeOption strikeOption = IDFCommander.ChooseStrikeOption(intelMessage);
-            bool confirmed = IDFCommander.ConfirmAttack(intelMessage.IntelTerrorist, strikeOption);
-            if (confirmed)
-            {
-                IDFCommander.Attack(intelMessage.IntelTerrorist, strikeOption);
-                Console.WriteLine($"The Attack was successful! {intelMessage.IntelTerrorist.Name} is dead!");
-                Console.WriteLine($"The Capacity of the {strikeOption.UniqueName} is {strikeOption.Capacity}.\n");
-            }
-            else if (!intelMessage.IntelTerrorist.IsAlive)
-            {
-                Console.WriteLine($"{intelMessage.IntelTerrorist.Name} is already dead.\n");
-            }
-            else
-            {
-                Console.WriteLine($"There are not enough bombs for the {strikeOption.UniqueName}, Please Supply.\n");
-            }
         }
     }
 }

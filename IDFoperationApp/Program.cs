@@ -25,7 +25,8 @@ namespace IDFoperationApp
             //await FactoryManager.CreateArtilleries();
             ////Displayer.ShowStrikeOptions();
             //OperationManager.Operate();
-            
+            await FactoryManager.CreateIntelMessage();
+            Displayer.ShowIntelMessages();
         }
     }
 }

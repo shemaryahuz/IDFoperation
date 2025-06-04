@@ -18,7 +18,7 @@ namespace IDFoperationApp
         };
         public static string GetTerroristPrompt()
         {
-            return "Generate a JSON object for a Terrorist with the following properties: Name (string) , Rank (int), Weapons (list of string (each string can be 'Rifle' or 'Gun' or 'Knife'))";
+            return "Generate a JSON object for a Terrorist with the following properties: Name (string that represent the name) , Rank (int that represent the rank from 1 to 5), Weapons (list of string (each string can be 'Rifle' or 'Gun' or 'Knife'))";
         }
         public static Terrorist ParseTerrorist(string json)
         {
