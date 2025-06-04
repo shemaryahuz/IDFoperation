@@ -18,6 +18,7 @@ namespace IDFoperationApp
         private readonly string _modelName;
         private readonly JsonSerializerOptions _jsonSerializerOptions;
         private static GeminiService _instance;
+        // Constructor to init apiKey, modelName. adding header of json and json options
         private GeminiService(string apiKey, string modelName = "gemini-2.0-flash")
         {
             if (string.IsNullOrEmpty(apiKey))
@@ -39,6 +40,7 @@ namespace IDFoperationApp
                 DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
             };
         }
+        // This method retuerns the Gemini Service instance (using singleton pattern)
         public static GeminiService GetInstance(string apiKey, string modelName = "gemini-2.0-flash")
         {
             if (_instance is null)
@@ -47,6 +49,7 @@ namespace IDFoperationApp
             }
             return _instance;
         }
+        // This method returns the url of Gemini API with the API KEY
         private string GetApiUrl()
         {
             if (string.IsNullOrWhiteSpace(_apiKey))
@@ -59,6 +62,7 @@ namespace IDFoperationApp
             }
             return $"https://generativelanguage.googleapis.com/v1beta/models/{_modelName}:generateContent?key={_apiKey}";
         }
+        // This method gets a prompt returns a GeminiRequest object with the prompt
         private GeminiRequest BuildRequest(string prompt)
         {
             GeminiRequest geminiRequest = new GeminiRequest
@@ -77,6 +81,7 @@ namespace IDFoperationApp
             };
             return geminiRequest;
         }
+        // This async method gets GeminiRequest send to Gemini and returns the response as json string 
         private async Task<string> SendRequestAsync(GeminiRequest geminiRequest)
         {
             string jsonPayLoad = JsonSerializer.Serialize(geminiRequest, _jsonSerializerOptions);
@@ -89,12 +94,14 @@ namespace IDFoperationApp
             }
             return responseContent;
         }
+        // This method returns the text from the json string response
         private string ExtractGeneratedText(string jsonResponse)
         {
             GeminiResponse geminiResponse = JsonSerializer.Deserialize<GeminiResponse>(jsonResponse, _jsonSerializerOptions);
             string generatedText = geminiResponse?.Candidates?.FirstOrDefault()?.Content?.Parts?.FirstOrDefault()?.Text;
             return generatedText;
         }
+        // This method gets a prompt and returns the Gemini response as json string
         public async Task<string> GenerateJsonStringAsync(string prompt)
         {
             if (string.IsNullOrWhiteSpace(prompt))
