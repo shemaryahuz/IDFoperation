@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace IDFoperationApp
 {
+    // This class represents a plain of the Strike Unit
     internal class Plain : IStrikeOption
     {
         [JsonPropertyName("uniqueName")]

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace IDFoperationApp
 {
+    // This class represents a drone of the Strike Unit
     internal class Drone: IStrikeOption
     {
         [JsonPropertyName("uniqueName")]

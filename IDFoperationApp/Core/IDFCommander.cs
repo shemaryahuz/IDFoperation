@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace IDFoperationApp
 {
+    // This class is responsible to the actions in IDF
     internal static class IDFCommander
     {
         public static IntelTerrorist GetDangerousTerrorist()
@@ -24,10 +25,6 @@ namespace IDFoperationApp
                     dangerousTerrorist = intelTerrorist;
                 }
             }
-            if (!dangerousTerrorist.IsAlive)
-            {
-                return null;
-            }
             return dangerousTerrorist;
         }
         public static IntelMessage GetLastMessage()
@@ -39,19 +36,7 @@ namespace IDFoperationApp
             }
             return intelUnit.IntelMessages[intelUnit.IntelMessages.Count - 1];
         }
-        public static IntelMessage GetMessageByName(string name)
-        {
-            IntelUnit intelUnit = IntelUnit.GetInstance();
-            foreach (IntelMessage message in intelUnit.IntelMessages)
-            {
-                if (message.TerroristName == name)
-                {
-                    return message;
-                }
-            }
-            return null;
-        }
-        public static IStrikeOption ChooseStrikeOption(IntelMessage intelMessage)
+        private static IStrikeOption ChooseStrikeOption(IntelMessage intelMessage)
         {
             StrikeUnit strikeUnit = StrikeUnit.GetInstance();
             switch (intelMessage.Location)
@@ -64,7 +49,7 @@ namespace IDFoperationApp
                     return strikeUnit.StrikeOptionsData["Drones"][0];
             }
         }
-        public static bool ConfirmAttack(string terroristName, IStrikeOption strikeOption)
+        private static bool ConfirmAttack(string terroristName, IStrikeOption strikeOption)
         {
             IntelUnit intelUnit = IntelUnit.GetInstance();
             if (intelUnit.IntelTerrorists[terroristName].IsAlive && strikeOption.Capacity > 0)
@@ -73,7 +58,7 @@ namespace IDFoperationApp
             }
             return false;
         }
-        public static void Attack(string terroristName, IStrikeOption strikeOption)
+        private static void Attack(string terroristName, IStrikeOption strikeOption)
         {
             Hamas hamas = Hamas.GetInstance();
             IntelUnit intelUnit = IntelUnit.GetInstance();
@@ -87,8 +72,61 @@ namespace IDFoperationApp
             }
             strikeOption.Capacity--;
         }
+        public static void AttackByLastMessage()
+        {
+            IntelMessage message = IDFCommander.GetLastMessage();
+            IStrikeOption strikeOption = IDFCommander.ChooseStrikeOption(message);
+            if (message is null)
+            {
+                Console.WriteLine("No Intel Messages yet.");
+            }
+            else
+            {
+                bool confirmed = IDFCommander.ConfirmAttack(message.TerroristName, strikeOption);
+                if (!confirmed)
+                {
+                    Console.WriteLine("Not confirmed because the terrorist is already dead or the strikOption's capacity is empty.");
+                }
+                else
+                {
+                    IDFCommander.Attack(message.TerroristName, strikeOption);
+                    Console.WriteLine($"Attack was successful. {message.TerroristName} is Dead, The {strikeOption.UniqueName} Capacity is {strikeOption.Capacity}.");
+                }
+            }
+        }
         public static void AttackByDangerous()
         {
+            IntelUnit intelUnit = IntelUnit.GetInstance();
+            IntelTerrorist terrorist = IDFCommander.GetDangerousTerrorist();
+            if (terrorist is null)
+            {
+                Console.WriteLine("No more terrorists.");
+                return;
+            }
+            IntelMessage intelMessage = null;
+            foreach (IntelMessage message in intelUnit.IntelMessages)
+            {
+                if (message.TerroristName == terrorist.Name)
+                {
+                    intelMessage = message;
+                }
+            }
+            if (intelMessage is null)
+            {
+                Console.WriteLine("No messages about the dangerous terrorist that is alive.");
+                return;
+            }
+            IStrikeOption strikeOption = IDFCommander.ChooseStrikeOption(intelMessage);
+            bool confirmed = IDFCommander.ConfirmAttack(terrorist.Name, strikeOption);
+            if (!confirmed)
+            {
+                Console.WriteLine("Not confirmed because the strikOption's capacity is empty.");
+            }
+            else
+            {
+                IDFCommander.Attack(terrorist.Name, strikeOption);
+                Console.WriteLine($"Attack was successful. {terrorist.Name} is Dead, The {strikeOption.UniqueName} Capacity is {strikeOption.Capacity}.");
+            }
         }
     }
 }

@@ -7,11 +7,12 @@ using System.Threading.Tasks;
 
 namespace IDFoperationApp
 {
+    // This class is responsible for the management of the IDFoperation, using the Displayer and IDFcommander
     internal static class OperationManager
     {
         private static bool ValidateChoice(string choice)
         {
-            string[] validCoices = { "1", "2", "3", "4", "5" };
+            string[] validCoices = { "1", "2", "3", "4", "5", "6", "7" };
             return validCoices.Contains(choice);
         }
         private static void ActivateChoice(string choice)
@@ -28,26 +29,34 @@ namespace IDFoperationApp
                     Displayer.ShowStrikeOptions();
                     break;
                 case "4":
+                    Displayer.ShowDangerousTerrorist();
+                    break;
+                case "5":
+                    Displayer.ShowLastMessage();
+                    break;
+                case "6":
                     IDFCommander.AttackByDangerous();
+                    break;
+                case "7":
+                    IDFCommander.AttackByLastMessage();
                     break;
             }
         }
         public static void Operate()
         {
             bool toExit = false;
+            string exit = "8";
             while (!toExit)
             {
                 Displayer.ShowMenu();
                 string choice = Displayer.GetChoice();
-                if (choice == "5")
+                if (choice == exit)
                 {
                     toExit = true;
-                    continue;
                 }
                 else if (!OperationManager.ValidateChoice(choice))
                 {
                     Console.WriteLine("Invalid Input!");
-                    continue;
                 }
                 else
                 {

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace IDFoperationApp
 {
+    // This interface represents a strike option of the IDF's strike unit
     internal interface IStrikeOption
     {
         string UniqueName { get; set; }

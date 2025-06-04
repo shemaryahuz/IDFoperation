@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace IDFoperationApp
 {
+    // This class is responsible for printing data to the console
     internal static class Displayer
     {
         public static void WelcomeMessage()
@@ -61,6 +62,30 @@ namespace IDFoperationApp
                 }
             }
         }
+        public static void ShowDangerousTerrorist()
+        {
+            IntelTerrorist terrorist = IDFCommander.GetDangerousTerrorist();
+            if (terrorist is null)
+            {
+                Console.WriteLine("No more terrorists alive");
+            }
+            else
+            {
+                Console.WriteLine($"Dangerous Terrorist: Name: {terrorist.Name}, Rank: {terrorist.Rank}, Score: {terrorist.Score}.");
+            }
+        }
+        public static void ShowLastMessage()
+        {
+            IntelMessage message = IDFCommander.GetLastMessage();
+            if (message is null)
+            {
+                Console.WriteLine("No messages yet.");
+            }
+            else
+            {
+                Console.WriteLine($"Message: Terrorist Name: {message.TerroristName}, Location: {message.Location}, Time: {message.Time}.");
+            }
+        }
         public static void ShowMenu()
         {
             Console.WriteLine(
@@ -70,8 +95,11 @@ namespace IDFoperationApp
                 "1. Show The List of Terrorist that the Intel Unit is Tracking after them.\n" +
                 "2. Show The List of Intelligance Messages that the Intel Unit Holds.\n" +
                 "3. Show The List of Strike Options that the Strike Unit Holds.\n" +
-                "4. Attack a Terrorist according to the most dangerous Terrorist.\n" +
-                "5. Exit.\n\n");
+                "4. Show the Dangerous terrorist that is alive.\n" +
+                "5. Show the Last message of the Intel Unit.\n" +
+                "6. Attack a Terrorist according to the most dangerous Terrorist.\n" +
+                "7. Attack a terrorist according to the last intel message.\n" +
+                "8. Exit.\n\n");
         }
         public static string GetChoice()
         {

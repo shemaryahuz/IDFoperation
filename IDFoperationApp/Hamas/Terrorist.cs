@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace IDFoperationApp
 {
+    // This class represents a terrorist in hamas
     internal class Terrorist
     {
         [JsonPropertyName("Name")]

@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 
 namespace IDFoperationApp
 {
+    // This class represents an Intel Terrorist which the intelUnit is tracking after him, inherit from terrorist class
     internal class IntelTerrorist: Terrorist
     {
         public int Reports;
         public int Score;
+        // Constructor to init the reports property and adding score according to the terrorist rank and weapons
         public IntelTerrorist(Terrorist terrorist):base(terrorist.Name, terrorist.Rank, terrorist.Weapons)
         {
             this.Reports = 0;
