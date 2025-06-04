@@ -8,38 +8,41 @@ namespace IDFoperationApp
 {
     internal static class Displayer
     {
-        public static void WelcomeMessage(IDF idf)
+        public static void WelcomeMessage()
         {
-            Console.WriteLine($"Welcome {idf.CurrentCommander}! You Have Control on the IDF\n");
+            Console.WriteLine($"Welcome {IDF.GetInstance().CurrentCommander}! You Have Control on the IDF\n");
         }
-        public static void ShowIntelTerrorists(IDF idf)
+        public static void ShowIntelTerrorists()
         {
+            IntelUnit intelUnit = IntelUnit.GetInstance();
             Console.WriteLine("\nThose are the Hamas terrorists that the Intel Unit of the IDF is Tracking after them:");
-            foreach (IntelTerrorist intelTerrorist in idf.IntelUnit.IntelTerrorists)
+            foreach (string terrorist in intelUnit.IntelTerrorists.Keys)
             {
                 Console.WriteLine(
-                    $"Name: {intelTerrorist.Name}. " +
-                    $"Rank: {intelTerrorist.Rank}. " +
-                    $"Score: {intelTerrorist.Score}. " +
-                    $"Reports: {intelTerrorist.Reports}. " +
-                    $"Status: {(intelTerrorist.IsAlive ? "Alive" : "Dead")}.");
+                    $"Name: {terrorist}. " +
+                    $"Rank: {intelUnit.IntelTerrorists[terrorist].Rank}. " +
+                    $"Score: {intelUnit.IntelTerrorists[terrorist].Score}. " +
+                    $"Reports: {intelUnit.IntelTerrorists[terrorist].Reports}. " +
+                    $"Status: {(intelUnit.IntelTerrorists[terrorist].IsAlive ? "Alive" : "Dead")}.");
             }
         }
-        public static void ShowIntelMessages(IDF idf)
+        public static void ShowIntelMessages()
         {
+            IntelUnit intelUnit = IntelUnit.GetInstance();
             Console.WriteLine("\nThose are the Intelligance Messages That the Intel unit of the IDF holds:");
-            foreach (IntelMessage message in idf.IntelUnit.Messages)
+            foreach (IntelMessage message in intelUnit.IntelMessages)
             {
-                Console.WriteLine($"Terrorist Name: {message.IntelTerrorist.Name}. Location: {message.Location}. Time: {message.Time}.");
+                Console.WriteLine($"Terrorist Name: {message.TerroristName}. Location: {message.Location}. Time: {message.Time}.");
             }
         }
-        public static void ShowStrikeOptions(IDF idf)
+        public static void ShowStrikeOptions()
         {
+            StrikeUnit strikeUnit = StrikeUnit.GetInstance();
             Console.WriteLine("\nThose are the macins of strike options that the Strike Unit of the IDF holds:");
-            foreach (string strikOption in idf.StrikeUnit.StrikeOptionsData.Keys)
+            foreach (string strikOption in strikeUnit.StrikeOptionsData.Keys)
             {
                 Console.WriteLine($"{strikOption}:");
-                foreach (IStrikeOption machin in idf.StrikeUnit.StrikeOptionsData[strikOption])
+                foreach (IStrikeOption machin in strikeUnit.StrikeOptionsData[strikOption])
                 {
                     Console.Write(
                         $"Name: {machin.UniqueName}. " +

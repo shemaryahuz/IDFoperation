@@ -2,15 +2,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace IDFoperationApp
 {
     internal class Terrorist
     {
+        [JsonPropertyName("Name")]
         public string Name;
+        [JsonPropertyName("Rank")]
         public int Rank;
+        [JsonPropertyName("IsAlive")]
         public bool IsAlive;
+        [JsonPropertyName("Weapons")]
         public List<string> Weapons = new List<string>();
         public Terrorist(string name, int rank, List<string> weapons)
         {

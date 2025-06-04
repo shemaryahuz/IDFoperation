@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Configuration;
+using DotNetEnv;
+using System.Text.Json;
 
 namespace IDFoperationApp
 {
     internal class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
-            OperationManager.Start();
+            Displayer.WelcomeMessage();
         }
     }
 }

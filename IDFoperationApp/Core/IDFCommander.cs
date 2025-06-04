@@ -9,69 +9,86 @@ namespace IDFoperationApp
 {
     internal static class IDFCommander
     {
-        public static IntelMessage ChooseTarget(IDF idf)
+        public static IntelTerrorist GetDangerousTerrorist()
         {
-            IntelMessage messageOfTarget = idf.IntelUnit.Messages[idf.IntelUnit.Messages.Count - 1];
-            foreach (IntelMessage intelMessage in idf.IntelUnit.Messages)
+            IntelUnit intelUnit = IntelUnit.GetInstance();
+            IntelTerrorist dangerousTerrorist = null;
+            foreach (IntelTerrorist intelTerrorist in intelUnit.IntelTerrorists.Values)
             {
-                if (intelMessage.IntelTerrorist.Rank > messageOfTarget.IntelTerrorist.Rank && intelMessage.IntelTerrorist.IsAlive)
+                if (dangerousTerrorist is null && intelTerrorist.IsAlive)
                 {
-                    messageOfTarget = intelMessage;
+                    dangerousTerrorist = intelTerrorist;
+                }
+                else if (intelTerrorist.Score > dangerousTerrorist.Score && intelTerrorist.IsAlive)
+                {
+                    dangerousTerrorist = intelTerrorist;
                 }
             }
-            return messageOfTarget;
+            if (!dangerousTerrorist.IsAlive)
+            {
+                return null;
+            }
+            return dangerousTerrorist;
         }
-        public static IStrikeOption ChooseStrikeOption(IDF idf, IntelMessage intelMessage)
+        public static IntelMessage GetLastMessage()
         {
+            IntelUnit intelUnit = IntelUnit.GetInstance();
+            if (intelUnit.IntelMessages.Count == 0)
+            {
+                return null;
+            }
+            return intelUnit.IntelMessages[intelUnit.IntelMessages.Count - 1];
+        }
+        public static IntelMessage GetMessageByName(string name)
+        {
+            IntelUnit intelUnit = IntelUnit.GetInstance();
+            foreach (IntelMessage message in intelUnit.IntelMessages)
+            {
+                if (message.TerroristName == name)
+                {
+                    return message;
+                }
+            }
+            return null;
+        }
+        public static IStrikeOption ChooseStrikeOption(IntelMessage intelMessage)
+        {
+            StrikeUnit strikeUnit = StrikeUnit.GetInstance();
             switch (intelMessage.Location)
             {
                 case "Home":
-                    return idf.StrikeUnit.StrikeOptionsData["Plains"][0];
+                    return strikeUnit.StrikeOptionsData["Plains"][0];
                 case "Car":
-                    return idf.StrikeUnit.StrikeOptionsData["Artilleries"][0];
+                    return strikeUnit.StrikeOptionsData["Artilleries"][0];
                 default:
-                    return idf.StrikeUnit.StrikeOptionsData["Drones"][0];
+                    return strikeUnit.StrikeOptionsData["Drones"][0];
             }
         }
-        public static bool ConfirmAttack(IntelTerrorist intelTerrorist, IStrikeOption strikeOption)
+        public static bool ConfirmAttack(string terroristName, IStrikeOption strikeOption)
         {
-            if (intelTerrorist.IsAlive && strikeOption.Capacity > 0)
+            IntelUnit intelUnit = IntelUnit.GetInstance();
+            if (intelUnit.IntelTerrorists[terroristName].IsAlive && strikeOption.Capacity > 0)
             {
                 return true;
             }
             return false;
         }
-        public static void Attack(Hamas hamas, IntelTerrorist intelTerrorist, IStrikeOption strikeOption)
+        public static void Attack(string terroristName, IStrikeOption strikeOption)
         {
+            Hamas hamas = Hamas.GetInstance();
+            IntelUnit intelUnit = IntelUnit.GetInstance();
             foreach (Terrorist terrorist in hamas.Terrorists)
             {
-                if (terrorist.Name == intelTerrorist.Name)
+                if (terrorist.Name == terroristName)
                 {
                     terrorist.IsAlive = false;
-                    intelTerrorist.IsAlive = false;
+                    intelUnit.IntelTerrorists[terroristName].IsAlive = false;
                 }
             }
             strikeOption.Capacity--;
         }
-        public static void AttackByDangerous(IDF idf, Hamas hamas)
+        public static void AttackByDangerous()
         {
-            IntelMessage intelMessage = IDFCommander.ChooseTarget(idf);
-            IStrikeOption strikeOption = IDFCommander.ChooseStrikeOption(idf, intelMessage);
-            bool confirmed = IDFCommander.ConfirmAttack(intelMessage.IntelTerrorist, strikeOption);
-            if (confirmed)
-            {
-                IDFCommander.Attack(hamas, intelMessage.IntelTerrorist, strikeOption);
-                Console.WriteLine($"The Attack was successful! {intelMessage.IntelTerrorist.Name} is dead!");
-                Console.WriteLine($"The Capacity of the {strikeOption.UniqueName} is {strikeOption.Capacity}.\n");
-            }
-            else if (!intelMessage.IntelTerrorist.IsAlive)
-            {
-                Console.WriteLine($"{intelMessage.IntelTerrorist.Name} is already dead.\n");
-            }
-            else
-            {
-                Console.WriteLine($"There are not enough bombs for the {strikeOption.UniqueName}, Please Supply.\n");
-            }
         }
     }
 }

@@ -10,18 +10,18 @@ namespace IDFoperationApp
     internal class IDF: Organization
     {
         private static IDF _Instance;
-        private IDF(Hamas hamas)
+        private IDF()
         {
             EstablishDate = new DateTime(1948, 5, 26).Date;
             CurrentCommander = "Eyal Zamir";
-            IntelUnit = IntelUnit.GetInstance(hamas);
+            IntelUnit = IntelUnit.GetInstance();
             StrikeUnit = StrikeUnit.GetInstance();
         }
-        public static IDF GetInstance(Hamas hamas)
+        public static IDF GetInstance()
         {
             if (_Instance is null)
             {
-                _Instance = new IDF(hamas);
+                _Instance = new IDF();
             }
             return _Instance;
         }
