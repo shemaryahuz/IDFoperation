@@ -87,7 +87,13 @@ namespace IDFoperationApp
             }
             strikeOption.Capacity--;
         }
+        public static void AttackByLastMessage()
+        {
+        }
         public static void AttackByDangerous()
+        {
+        }
+        public static void AttackByName()
         {
         }
     }
