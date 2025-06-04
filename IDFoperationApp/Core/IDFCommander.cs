@@ -36,18 +36,6 @@ namespace IDFoperationApp
             }
             return intelUnit.IntelMessages[intelUnit.IntelMessages.Count - 1];
         }
-        public static IntelMessage GetMessageByName(string name)
-        {
-            IntelUnit intelUnit = IntelUnit.GetInstance();
-            foreach (IntelMessage message in intelUnit.IntelMessages)
-            {
-                if (message.TerroristName == name)
-                {
-                    return message;
-                }
-            }
-            return null;
-        }
         public static IStrikeOption ChooseStrikeOption(IntelMessage intelMessage)
         {
             StrikeUnit strikeUnit = StrikeUnit.GetInstance();
@@ -138,34 +126,6 @@ namespace IDFoperationApp
             {
                 IDFCommander.Attack(terrorist.Name, strikeOption);
                 Console.WriteLine($"Attack was successful. {terrorist.Name} is Dead, The {strikeOption.UniqueName} Capacity is {strikeOption.Capacity}.");
-            }
-        }
-        public static void AttackByName(string terroristName)
-        {
-            IntelUnit intelUnit = IntelUnit.GetInstance();
-            IntelMessage intelMessage = null;
-            foreach (IntelMessage message in intelUnit.IntelMessages)
-            {
-                if (message.TerroristName == terroristName)
-                {
-                    intelMessage = message;
-                }
-            }
-            if (intelMessage is null)
-            {
-                Console.WriteLine("No messages about this terrorist.");
-                return;
-            }
-            IStrikeOption strikeOption = IDFCommander.ChooseStrikeOption(intelMessage);
-            bool confirmed = IDFCommander.ConfirmAttack(terroristName, strikeOption);
-            if (!confirmed)
-            {
-                Console.WriteLine("Not confirmed because the terrorist is already dead or the strikOption's capacity is empty.");
-            }
-            else
-            {
-                IDFCommander.Attack(terroristName, strikeOption);
-                Console.WriteLine($"Attack was successful. {terroristName} is Dead, The {strikeOption.UniqueName} Capacity is {strikeOption.Capacity}.");
             }
         }
     }
